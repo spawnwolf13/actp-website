@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACTP Reports</title>
+<meta name="description" content="ACTP's annual reports and financial statements, supporting transparency and long-term investment confidence.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  .hl { font-style: italic; }
+  /* header: the words set wide on a dark page, one black-and-white photograph between them */
+  .rhero { position: relative; min-height: 100svh; background: #13192b; color: var(--off-white); padding: 100px var(--g) var(--g); display: flex; flex-direction: column; overflow: hidden; }
+  .rhero .crumbs a, .rhero .crumbs span { color: var(--off-white); background: rgba(236, 233, 222, .12); text-decoration: none; }
+  .rhero h1, .rhero .w3 { font: 400 clamp(84px, 13vw, 240px)/.8 var(--serif); text-transform: uppercase; white-space: nowrap; letter-spacing: .005em; }
+  .rhero h1 { margin: 28px 0 0 -.04em; }
+  .rhero .w3 { align-self: stretch; text-align: right; margin-top: auto; margin-right: -.02em; font-size: clamp(64px, 10vw, 190px); padding-bottom: .06em; }
+  .rhero .mid .ph { max-height: 34vh; aspect-ratio: auto; height: 34vh; }
+  .rhero .w2 { display: inline-block; overflow: hidden; padding-bottom: .04em; }
+  .rhero .w2 > span { display: inline-block; animation: phUp 1.3s var(--e-out) .2s both; }
+  .rhero .w3 .w2 > span { animation-delay: .35s; }
+  .rhero .mid { display: grid; grid-template-columns: minmax(0, 34%) 1fr; gap: 24px; align-items: end; margin: 26px 0; border-top: 1px solid var(--line-dark); padding-top: 14px; }
+  .rhero .mid .ph { aspect-ratio: 4 / 3; animation: ppIn 1.4s var(--e-out) .3s both; }
+  .rhero .line { justify-self: end; max-width: 30ch; font: 300 clamp(20px, 1.6vw, 26px)/1.3 var(--sans); text-align: right; }
+
+  /* latest report: a designed cover beside its figures */
+  .latest { margin-top: 140px; }
+  .lgrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); margin-top: 48px; align-items: center; }
+  .cwrap { grid-column: 1 / 6; }
+  .cover { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 6px 12px 12px 6px; overflow: hidden; background: var(--ink); color: var(--off-white); text-decoration: none; box-shadow: 0 40px 80px -40px rgba(22, 32, 58, .5); }
+  .cover canvas { position: absolute; inset: 14% 0 22% 0; width: 100%; height: 64%; }
+  .cv-top { position: absolute; z-index: 1; left: 28px; right: 28px; top: 26px; display: flex; justify-content: space-between; align-items: center; font: 500 15px var(--sans); color: var(--mellow); }
+  .cv-top img { height: 44px; filter: invert(1); }
+  .cv-bot { position: absolute; z-index: 1; left: 28px; right: 28px; bottom: 26px; display: grid; gap: 8px; padding-top: 16px; border-top: 1px solid rgba(236, 233, 222, .25); }
+  .cv-t { font: 400 clamp(36px, 3.4vw, 58px)/1 var(--serif); }
+  .cv-s { font: 400 14px/1.4 var(--sans); color: #c5cad8; }
+  .cover:focus-visible { outline: 3px solid var(--sandy); outline-offset: 4px; }
+  .ltxt { grid-column: 7 / -1; }
+  .ltxt .t-small { color: var(--royal); }
+  .hl3 { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 40px; margin-top: 22px; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+  .hl3 b { display: block; font: 300 clamp(52px, 5vw, 86px)/1 var(--sans); letter-spacing: -.03em; color: #2b2f38; }
+  .hl3 b span { font: inherit; }
+  .hl3 > li > span { display: block; margin-top: 10px; font: 500 14px var(--sans); color: var(--ink-2); }
+  .ltxt h3 { margin-top: 28px; font: 400 clamp(30px, 2.6vw, 44px)/1.08 var(--serif); max-width: 20ch; }
+  .ltxt .t-body { margin-top: 14px; }
+  .acts { display: flex; align-items: center; gap: 24px; margin-top: 32px; }
+  .tlink { display: inline-flex; align-items: center; gap: 10px; font: 500 15px var(--sans); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+  .tlink svg { width: 16px; height: 16px; }
+  .tlink:hover { color: var(--royal); }
+
+  /* library */
+  .lib { margin-top: 160px; }
+  .seg { display: inline-flex; padding: 4px; gap: 4px; border-radius: 999px; background: rgba(41, 57, 89, .07); }
+  .seg button { all: unset; cursor: pointer; padding: 11px 18px; border-radius: 999px; font: 500 15px var(--sans); color: var(--ink-2); transition: background .4s var(--e-out), color .4s; }
+  .seg button[aria-selected="true"] { background: var(--ink); color: var(--white); }
+  .seg button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .years { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px; }
+  .years button { all: unset; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; padding: 8px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 500 14px var(--sans); color: var(--ink-2); transition: background .3s, color .3s; }
+  .years button small { font: 500 12px var(--sans); opacity: .6; }
+  .years button[aria-pressed="true"] { background: var(--mellow); color: var(--ink); box-shadow: none; }
+  .years button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .rhead, .rrow { display: grid; grid-template-columns: 130px minmax(0, 1fr) 170px 150px 210px; column-gap: var(--col); align-items: center; }
+  .rhead { margin-top: 32px; padding-bottom: 10px; font: 500 12px var(--sans); color: var(--ink-3); }
+  .rrow { padding: 18px 0; border-top: 1px solid var(--line); opacity: 0; transform: translateY(12px); animation: rIn .7s var(--e-out) forwards; animation-delay: var(--d, 0s); }
+  .rrow:last-child { border-bottom: 1px solid var(--line); }
+  @keyframes rIn { to { opacity: 1; transform: none; } }
+  .rrow .yr { font: 300 44px/1 var(--sans); letter-spacing: -.02em; color: var(--ink-3); transition: color .4s; }
+  .rrow h3 { font: 400 clamp(22px, 1.8vw, 28px)/1.2 var(--serif); }
+  .rrow .dt, .rrow .sz { font: 500 14px var(--sans); color: var(--ink-2); }
+  .rrow .ac { justify-self: end; display: flex; gap: 8px; }
+  .rrow .ac a { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); font: 500 14px var(--sans); text-decoration: none; transition: background .3s, color .3s, border-color .3s; }
+  .rrow .ac a svg { width: 14px; height: 14px; }
+  .rrow .ac a.dl { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .rrow .ac a:hover { background: var(--royal); color: var(--white); border-color: var(--royal); }
+  .rrow .ac a:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .rrow:hover .yr { color: var(--royal); }
+  .note { display: flex; gap: 10px; align-items: center; margin-top: 20px; font: 500 13px var(--sans); color: var(--ink-3); }
+  .note .dot { width: 8px; height: 8px; background: var(--sandy); transform: rotate(45deg); }
+
+  /* investor relations card */
+  .closing { margin-top: 160px; }
+  .talk .steps { margin-top: auto; }
+  .talk .field { display: flex; gap: 8px; max-width: 460px; }
+  .talk input { flex: 1; min-width: 0; height: 52px; padding: 0 18px; border: 0; border-radius: 12px; background: rgba(255, 255, 255, .14); color: var(--white); font: 400 16px var(--sans); }
+  .talk input::placeholder { color: rgba(255, 255, 255, .78); }
+  .talk input:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button { all: unset; cursor: pointer; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--off-white); color: var(--ink); transition: transform .6s var(--e-out); }
+  .talk button:hover { transform: rotate(-45deg); }
+  .talk button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button svg { width: 18px; height: 18px; }
+  .talk .thanks { display: block; min-height: 1.4em; margin-top: 10px; font: 500 14px var(--sans); }
+  .talk.done .field { display: none; }
+  .talk .direct { margin-top: 10px; font: 400 14px var(--sans); opacity: .9; }
+  .talk .direct a { color: var(--white); }
+
+  @media (max-width: 1100px) { .rhead, .rrow { grid-template-columns: 100px minmax(0, 1fr) 140px 190px; } .rhead span:nth-child(4), .rrow .sz { display: none; } }
+  @media (max-width: 900px) {
+    .rhero { min-height: 92svh; } .rhero .mid { grid-template-columns: 1fr; } .rhero .line { justify-self: start; text-align: left; }
+    .latest, .lib, .closing { margin-top: 88px; }
+    .lgrid { grid-template-columns: 1fr; row-gap: 32px; } .cwrap, .ltxt { grid-column: 1; }
+    .hl3 { gap: 20px; } .hl3 b { font-size: 12vw; }
+    .acts { flex-wrap: wrap; }
+    .rhead { display: none; }
+    .rrow { grid-template-columns: 70px minmax(0, 1fr); row-gap: 10px; }
+    .rrow .yr { font-size: 28px; grid-row: 1 / span 2; } .rrow h3 { font-size: 20px; } .rrow .dt { grid-column: 2; } .rrow .ac { grid-column: 2; justify-self: start; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Header, after Aker's Invest with Us: the words set wide on a dark page, one photograph ===== -->
+  <section class="rhero on-dark">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><a class="idx" href="investment.html">Investment</a><i></i><span class="idx">Reports</span></div>
+    <h1 class="w1" data-fit><span class="w2"><span>Reports</span></span></h1>
+    <div class="mid">
+      <figure class="ph"><img src="assets/img3/sheraton-dusk.jpg" alt="Sheraton Cairo at dusk"></figure>
+      <p class="line">Supporting transparency, operational transformation, and long-term investment confidence.</p>
+    </div>
+    <p class="w3" aria-hidden="true" data-fit><span class="w2"><span>&amp; Disclosures</span></span></p>
+  </section>
+
+  <!-- ===== Latest report ===== -->
+  <section class="latest wrap" id="latest">
+    <header class="sh"><h2 class="t-h2" data-split>Latest report</h2></header>
+    <div class="lgrid">
+      <div class="cwrap" id="coverWrap">
+        <a class="cover" href="#" id="coverLink" aria-label="Read the 2025 Annual Report online">
+          <span class="cv-top"><img src="assets/img/logo.svg" alt=""><span class="num">2025</span></span>
+          <canvas id="coverArt" aria-hidden="true"></canvas>
+          <span class="cv-bot"><span class="cv-t">Annual Report</span><span class="cv-s">Transforming destinations into enduring landmarks</span></span>
+        </a>
+      </div>
+      <div class="ltxt">
+        <span class="t-small">Annual Report · Published 2025</span>
+        <ul class="hl3">
+          <li><b class="num"><span data-count>325</span>+</b><span>Rooms added</span></li>
+          <li><b class="num" data-count>121</b><span>Rooms renovated</span></li>
+          <li><b class="num">$<span data-count>28</span>M</b><span>Forecast net profit FY25</span></li>
+        </ul>
+        <h3>A year of transformation across the portfolio</h3>
+        <p class="t-body">Placeholder summary: renovation and expansion across the portfolio, nine new meeting rooms, and stronger governance and reporting systems.</p>
+        <div class="acts">
+          <a class="pill" href="#"><span><span class="roll"><span>Read online</span><span>Read online</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a>
+          <a class="tlink" href="#"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 7.5 8 12l4.5-4.5M2 14h12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Library ===== -->
+  <section class="lib wrap" id="library">
+    <header class="sh"><h2 class="t-h2" data-split>Reports library</h2>
+      <div class="side"><div class="seg" role="tablist" aria-label="Report type">
+        <button role="tab" aria-selected="true" data-k="annual">Annual reports</button>
+        <button role="tab" aria-selected="false" data-k="fin" tabindex="-1">Financial statements</button>
+      </div></div></header>
+    <div class="years" id="years" role="group" aria-label="Filter by year"></div>
+    <div class="rhead" aria-hidden="true"><span>Year</span><span>Report</span><span>Published</span><span>File</span><span></span></div>
+    <div class="rlist" id="rlist" aria-live="polite"></div>
+    <p class="note"><span class="dot" aria-hidden="true"></span>Files, dates and sizes shown are placeholders until ACTP supplies the reports.</p>
+  </section>
+
+  <!-- ===== Investor relations: signup and direct contact, beside governance ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="pair">
+      <form class="pcard royal talk" id="alerts" action="#" novalidate>
+        <span class="mark" id="mark"></span>
+        <span class="t-small">Investor relations</span>
+        <h2>Get new reports as they are published</h2>
+        <p>Leave your email and we'll send each annual report and financial statement on the day it's released.</p>
+        <div class="steps">
+          <label class="sr-only" for="alertIn">Your email</label>
+          <div class="field"><input id="alertIn" type="email" placeholder="Your email" autocomplete="email"><button type="submit" aria-label="Subscribe"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+          <span class="thanks" aria-live="polite" id="alertMsg"></span>
+          <p class="direct">Questions? <a href="mailto:info@seyahia.com">info@seyahia.com</a> · <a href="tel:+20226121499">+20 2 2612 1499</a></p>
+        </div>
+      </form>
+      <a class="pcard photo" href="governance.html">
+        <img src="assets/img3/manager.jpg" alt="" loading="lazy" style="object-position:50% 40%">
+        <span class="t-small">Governance</span>
+        <h2>Supporting strategic transformation</h2>
+        <p>How ACTP strengthens governance through investment policies, reporting systems and operational transparency.</p>
+        <span class="pill light"><span><span class="roll"><span>Explore governance</span><span>Explore governance</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples-art.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, { shapeSVG } = window.ACTP, reduce = A.reduce;
+  A.init();
+
+  // ---- The cover: the magnifier drawn in the mark, parting under the pointer
+  const wrap = document.getElementById("coverWrap"), cover = document.getElementById("coverLink");
+  A.art(document.getElementById("coverArt"), "assets/art/magnifier.jpg", { cell: (w) => Math.max(5, Math.round(w / 70)), fg: ["#3e67b1", "#3e67b1", "#106470", "#ece9de"], scale: .84, pad: .06, interact: "swell", radius: .2, hot: "#fecb93", idle: true, pointerTarget: cover });
+
+  // ---- Reports library. Titles, dates and file details are placeholders until ACTP supplies the files.
+  const DOCS = {
+    annual: [
+      { y: 2025, t: "Annual Report 2025", dt: "Placeholder date", sz: "PDF · 64 pages" },
+      { y: 2024, t: "Annual Report 2024", dt: "Placeholder date", sz: "PDF · 58 pages" },
+      { y: 2023, t: "Annual Report 2023", dt: "Placeholder date", sz: "PDF · 56 pages" },
+      { y: 2022, t: "Annual Report 2022", dt: "Placeholder date", sz: "PDF · 52 pages" },
+    ],
+    fin: [
+      { y: 2025, t: "Interim financial statements, Q2", dt: "Placeholder date", sz: "PDF · 24 pages" },
+      { y: 2025, t: "Interim financial statements, Q1", dt: "Placeholder date", sz: "PDF · 22 pages" },
+      { y: 2024, t: "Audited financial statements", dt: "Placeholder date", sz: "PDF · 40 pages" },
+      { y: 2023, t: "Audited financial statements", dt: "Placeholder date", sz: "PDF · 38 pages" },
+    ],
+  };
+  const DL = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 7.5 8 12l4.5-4.5M2 14h12" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+  const EYE = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>';
+  const list = document.getElementById("rlist"), yearsEl = document.getElementById("years"), tabs = [...document.querySelectorAll(".seg button")];
+  let kind = "annual", year = "all";
+  const render = () => {
+    const docs = DOCS[kind], ys = [...new Set(docs.map((d) => d.y))];
+    const n = (y) => docs.filter((d) => d.y === y).length;
+    yearsEl.innerHTML = [`<button type="button" aria-pressed="${year === "all"}" data-y="all">All years <small>${docs.length}</small></button>`, ...ys.map((y) => `<button type="button" aria-pressed="${year == y}" data-y="${y}">${y} <small>${n(y)}</small></button>`)].join("");
+    yearsEl.querySelectorAll("button").forEach((b) => (b.onclick = () => { year = b.dataset.y; render(); }));
+    const rows = docs.filter((d) => year === "all" || d.y == year);
+    list.innerHTML = rows.map((d, i) => `<div class="rrow" style="--d:${i * .06}s"><span class="yr num">${d.y}</span><h3>${d.t}${kind === "fin" ? ` ${d.y}` : ""}</h3><span class="dt">${d.dt}</span><span class="sz">${d.sz}</span><span class="ac"><a href="#" aria-label="View ${d.t} ${d.y} online">${EYE}View</a><a class="dl" href="#" aria-label="Download ${d.t} ${d.y}">${DL}Download</a></span></div>`).join("");
+  };
+  tabs.forEach((t, k) => {
+    t.onclick = () => { kind = t.dataset.k; year = "all"; tabs.forEach((x) => { x.setAttribute("aria-selected", x === t); x.tabIndex = x === t ? 0 : -1; }); render(); };
+    t.onkeydown = (e) => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); tabs[1 - k].click(); tabs[1 - k].focus(); } };
+  });
+  render();
+
+  // ---- Report alerts signup
+  const form = document.getElementById("alerts"), input = document.getElementById("alertIn"), msg = document.getElementById("alertMsg");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!/\S+@\S+\.\S+/.test(input.value)) { msg.textContent = "Please enter a valid email."; input.focus(); return; }
+    form.classList.add("done"); msg.textContent = "Thank you. You'll receive new reports as they are published.";
+  });
+
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>

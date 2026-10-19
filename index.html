@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACTP</title>
+<meta name="description" content="Arab Company for Touristic Projects: transforming destinations into landmarks across Egypt since 1990.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  /* =========================================================
+     1. Header: a montage of every ACTP property (stand-in for a video),
+        a hairline, the name set large, and three doors on the right
+     ========================================================= */
+  .hero { position: relative; height: 100svh; min-height: 640px; color: var(--white); overflow: hidden; background: var(--ink); }
+  .montage { position: absolute; inset: 0; }
+  .montage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 1.6s var(--e-io), transform 9s linear; }
+  .montage img.on { opacity: 1; transform: scale(1); }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14, 20, 38, .72) 0%, rgba(14, 20, 38, .18) 46%, rgba(14, 20, 38, .32) 100%); pointer-events: none; }
+  .hero .in { position: absolute; z-index: 2; inset: 0; padding: 0 var(--g) var(--g); display: grid; grid-template-columns: 1fr minmax(0, 470px); grid-template-rows: 41% auto 1fr; column-gap: 32px; }
+  .hero .rule { grid-column: 1 / -1; grid-row: 2; height: 1px; background: rgba(255, 255, 255, .35); transform-origin: left; animation: ruleIn 1.6s var(--e-out) .3s both; }
+  @keyframes ruleIn { from { transform: scaleX(0); } }
+  .hero .lead { grid-column: 1; grid-row: 3; padding-top: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 0; }
+  .hero .lead p { font: 400 clamp(19px, 1.4vw, 22px)/1.35 var(--serif); max-width: 30ch; }
+  .hero .now { display: flex; align-items: center; gap: 10px; margin-top: 14px; font: 500 13px var(--sans); color: rgba(255, 255, 255, .85); }
+  .hero .now i { width: 64px; height: 2px; background: rgba(255, 255, 255, .3); position: relative; overflow: hidden; }
+  .hero .now i::after { content: ""; position: absolute; inset: 0; background: var(--mellow); transform-origin: left; animation: nowfill var(--md, 5s) linear infinite; }
+  @keyframes nowfill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero h1 { font: 400 clamp(110px, 17vw, 300px)/.74 var(--serif); letter-spacing: -.03em; margin: 0 0 -.02em -.04em; }
+  .hero h1 .w2 { display: inline-block; overflow: hidden; padding-bottom: .04em; }
+  .hero h1 .w2 > span { display: inline-block; animation: wordUp 1.4s var(--e-out) .2s both; }
+  @keyframes wordUp { from { transform: translateY(100%); } }
+
+  .doors { grid-column: 2; grid-row: 3; align-self: end; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 18px; }
+  .door { position: relative; display: block; border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--white); background: rgba(12, 18, 34, .78); backdrop-filter: blur(10px); animation: doorIn 1.2s var(--e-out) both; }
+  .door:nth-child(2) { animation-delay: .12s; } .door:nth-child(3) { animation-delay: .22s; }
+  @keyframes doorIn { from { opacity: 0; transform: translateY(24px); } }
+  .door .go { position: absolute; top: 14px; right: 14px; width: 18px; height: 18px; transition: transform .6s var(--e-out); }
+  .door:hover .go { transform: rotate(-45deg); }
+  .door:focus-visible { outline: 3px solid var(--sandy); outline-offset: 3px; }
+  .door.wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 8px; }
+  .door.wide .ph { aspect-ratio: 4 / 3; border-radius: 8px; }
+  .door.wide .ph img { transition: transform 1.2s var(--e-out); }
+  .door.wide:hover .ph img { transform: scale(1.06); }
+  .door.wide .t { padding: 6px 30px 6px 0; }
+  .door b { display: block; font: 500 16px var(--sans); }
+  .door p { margin-top: 8px; font: 400 15px/1.4 var(--sans); color: rgba(255, 255, 255, .82); }
+  .door.tile { aspect-ratio: 1 / 1.05; padding: 16px; display: flex; flex-direction: column; justify-content: end; }
+  .door.tile .mk { position: absolute; top: 10px; right: 10px; width: 64px; height: 64px; display: grid; place-items: center; }
+  .door.tile .mk svg { width: 36px; height: 36px; color: var(--mellow); transition: transform 1.2s var(--e-out); }
+  .door.tile:hover .mk svg { transform: rotate(45deg); }
+  .door.photo { padding: 8px; background: rgba(12, 18, 34, .78); }
+  .door.photo .ph { position: absolute; inset: 8px; border-radius: 8px; }
+  .door.photo .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10, 16, 32, .75), transparent 60%); }
+  .door.photo .ph img { transition: transform 1.2s var(--e-out); }
+  .door.photo:hover .ph img { transform: scale(1.06); }
+  .door.photo .lab { position: absolute; left: 22px; bottom: 20px; right: 22px; }
+  .door.photo .go { z-index: 1; top: 22px; right: 22px; }
+  .door.tile .lab p, .door.photo .lab p { font-size: 14px; }
+
+  /* =========================================================
+     2. 1990: the year set huge beside the statement
+     ========================================================= */
+  .since { padding: 140px 0 120px; }
+  .since .yr { grid-column: 1 / 7; }
+  .since .yr .idx { margin-bottom: 18px; }
+  .since .yr p { font: 400 clamp(150px, 24vw, 420px)/.76 var(--serif); letter-spacing: -.045em; margin-left: -.05em; color: var(--ink); }
+  .since .t { grid-column: 7 / -1; align-self: stretch; display: flex; flex-direction: column; justify-content: end; padding: 40px 0 6px 40px; }
+
+  /* =========================================================
+     3. Who we are (as in option G)
+     ========================================================= */
+  .who .r1 { margin-top: 64px; align-items: start; }
+  .who .r1 .q { grid-column: 1 / 6; }
+  .who .r1 .b { grid-column: 6 / 9; align-self: end; padding-right: 8px; }
+  .who .r1 .p { grid-column: 9 / -1; padding-left: 16px; }
+  .who .r1 .p .ph { aspect-ratio: 3 / 5; }
+  .who .r2 { margin-top: 96px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .who .r2 .ph { grid-column: 1 / 5; aspect-ratio: 4 / 5; }
+  .who .r2 .q { grid-column: 5 / 11; padding: 120px 0 0 22px; }
+  .who .r2 .b { grid-column: 9 / -1; margin-top: 100px; padding-left: 16px; }
+  .lafico { display: inline-flex; gap: 10px; align-items: center; margin-bottom: 22px; }
+
+  /* =========================================================
+     4. Where we invest: dark, colour-coded regions in the mark,
+        city tags and a card that lists every asset in the city
+     ========================================================= */
+  .where { background: var(--ink); color: var(--off-white); padding: 26px 0 40px; margin-top: 140px; }
+  .where .body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); margin-top: 28px; align-items: end; }
+  .where .left { grid-column: 1 / 5; display: grid; gap: 22px; align-content: end; }
+  .where .left .t-body { color: #c5cad8; }
+  .where .mapbox { grid-column: 6 / -1; position: relative; width: min(100%, 700px); justify-self: end; }
+  .where .mapbox canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .where .map3 .gov { fill: transparent !important; stroke: transparent !important; }
+  .where .map3 .gl { display: none; }
+  .where .map3 .pin text { fill: var(--off-white); paint-order: stroke; stroke: var(--ink); stroke-width: 5px; stroke-linejoin: round; }
+  .cities { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cities button { all: unset; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; padding: 9px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(236, 233, 222, .28); font: 500 14px var(--sans); transition: background .3s, color .3s; }
+  .cities button small { font: 500 12px var(--sans); opacity: .7; }
+  .cities button[aria-pressed="true"] { background: var(--mellow); color: var(--ink); box-shadow: none; }
+  .cities button:hover:not([aria-pressed="true"]) { background: rgba(236, 233, 222, .1); }
+  .cities button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+
+  /* the city card: header, photo of the chosen asset, every asset listed, two tiles */
+  .ccard { display: grid; gap: 8px; width: 100%; max-width: 420px; }
+  .ccard .main { padding: 8px; border-radius: 12px; background: #0b1224; }
+  .ccard .hd { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 8px 12px; }
+  .ccard .hd h3 { font: 400 26px/1 var(--serif); }
+  .ccard .hd span { font: 500 13px var(--sans); color: #aab2c6; }
+  .ccard .pic { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #1d2742; }
+  .ccard .pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s var(--e-out); }
+  .ccard .pic img.on { opacity: 1; }
+  .ccard ul { margin-top: 6px; }
+  .ccard li button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 10px 1fr auto; gap: 12px; align-items: center; padding: 11px 10px; border-radius: 8px; font: 500 15px var(--sans); color: #c5cad8; transition: background .3s, color .3s; }
+  .ccard li button i { width: 10px; height: 10px; border-radius: 50%; }
+  .ccard li button small { font: 400 13px var(--sans); color: #8e97ad; }
+  .ccard li button[aria-pressed="true"] { background: rgba(236, 233, 222, .08); color: var(--off-white); }
+  .ccard li button:hover { color: var(--off-white); }
+  .ccard li button:focus-visible { outline: 3px solid var(--sandy); outline-offset: -3px; }
+  .ccard .tiles { display: grid; grid-template-columns: 1.65fr 1fr; gap: 8px; }
+  .ccard .st { min-height: 104px; padding: 14px; border-radius: 12px; display: flex; flex-direction: column; justify-content: end; font: 500 14px/1.3 var(--sans); transition: background .5s, color .5s; }
+  .ccard .st b { display: block; font: 500 17px/1.25 var(--sans); margin-top: 4px; }
+  .ccard .code { min-height: 104px; padding: 6px 12px; border-radius: 12px; display: flex; align-items: end; background: var(--mellow); color: var(--ink); font: 400 clamp(44px, 4vw, 60px)/1 var(--serif); }
+  .ccard .swap { transition: opacity .3s var(--e-out); }
+  .ccard.out .swap { opacity: 0; }
+
+  /* =========================================================
+     5. Numbers beside a held photograph (as in option I)
+     ========================================================= */
+  .nums { margin-top: 140px; }
+  .nums .g2 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); margin-top: 48px; }
+  .nums .hold { grid-column: 1 / 6; }
+  .nums .hold .ph { position: sticky; top: 90px; aspect-ratio: 4 / 5; }
+  .nums .list { grid-column: 7 / -1; }
+  .nums .list > div { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 6px 24px; padding: 18px 0 26px; border-top: 1px solid var(--line); }
+  .nums .list .n { font: 400 clamp(64px, 7vw, 124px)/.88 var(--serif); letter-spacing: -.02em; }
+  .nums .list .n small { font: 500 .22em var(--sans); letter-spacing: 0; margin-left: .2em; }
+  .nums .list .l { font: 500 16px/1.35 var(--sans); max-width: 18ch; text-align: right; }
+  .nums .list .tr { border-top: 1px solid var(--line); padding-top: 18px; display: block; }
+  .nums .list .tr p { font: 400 24px var(--serif); margin-bottom: 14px; }
+  .nums .list .tr ul { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .nums .list .tr li { padding: 14px; border-radius: 12px; background: var(--off-white); font: 500 14px/1.3 var(--sans); }
+  .nums .list .tr li b { display: block; font: 400 40px/1 var(--serif); margin-bottom: 10px; }
+
+  /* =========================================================
+     6. Portfolio index (as in option H), each row signed by its brand
+     ========================================================= */
+  .port { margin-top: 140px; }
+  .port .filters { display: flex; gap: 6px; }
+  .port .filters button { all: unset; cursor: pointer; padding: 10px 16px; border-radius: 999px; background: rgba(41, 57, 89, .07); font: 500 14px var(--sans); transition: background .3s, color .3s; }
+  .port .filters button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+  .port .filters button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .ix { margin-top: 48px; }
+  .ix a { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); align-items: center; padding: 20px 0; border-top: 1px solid var(--line); text-decoration: none; transition: opacity .4s; }
+  .ix a:last-child { border-bottom: 1px solid var(--line); }
+  .ix .lg { grid-column: 1 / 3; height: 44px; display: flex; align-items: center; }
+  .ix .lg img { max-height: 40px; max-width: 150px; width: auto; filter: brightness(0) saturate(0); opacity: .82; transition: opacity .4s; }
+  .ix .lg .word { font: 600 12px/1.25 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: rgba(22, 32, 58, .82); max-width: 13ch; }
+  .ix h3 { grid-column: 3 / 9; font: 400 clamp(28px, 3vw, 50px)/1.05 var(--serif); transition: transform .7s var(--e-out); }
+  .ix .c { grid-column: 9 / 11; font: 400 16px var(--sans); color: var(--ink-2); }
+  .ix .k { grid-column: 11 / 12; font: 500 14px var(--sans); white-space: nowrap; }
+  .ix .k i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  .ix .go { grid-column: 12; justify-self: end; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); transition: background .4s, color .4s, transform .6s var(--e-out); }
+  .ix .go svg { width: 16px; height: 16px; }
+  .ix a:hover h3 { transform: translateX(14px); }
+  .ix a:hover .lg img { opacity: 1; }
+  .ix a:hover .go { background: var(--ink); color: var(--white); transform: rotate(-45deg); }
+  .ix:hover a:not(:hover) { opacity: .45; }
+  .ix a.hide { display: none; }
+  .ix .thumb { display: none; }
+  .floatph { position: fixed; z-index: 70; left: 0; top: 0; width: 300px; aspect-ratio: 4 / 5; border-radius: var(--r); overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s var(--e-out); }
+  .floatph.on { opacity: 1; }
+  .floatph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .4s; }
+  .floatph img.on { opacity: 1; }
+
+  .guide { margin-top: 140px; background: var(--off-white); padding: 26px 0 120px; }
+  .guide .acc { grid-column: 6 / -1; margin-top: 64px; }
+  .guide .accimg { grid-column: 1 / 5; margin-top: 64px; border-radius: var(--r); overflow: hidden; }
+  .guide .sh { border-color: rgba(41, 57, 89, .2); }
+  .news { margin-top: 140px; }
+  .news .rows { margin-top: 48px; }
+  .closing { margin-top: 140px; }
+
+  /* =========================================================
+     7. Footer: the name in the mark, alive
+     ========================================================= */
+  .foot3.on-dark { margin-top: 140px; }
+
+  @media (max-width: 1100px) { .hero .in { grid-template-columns: 1fr minmax(0, 400px); } }
+  @media (max-width: 900px) {
+    .hero { height: auto; min-height: 100svh; }
+    .hero .in { position: relative; min-height: 100svh; grid-template-columns: 1fr; grid-template-rows: 34vh auto auto auto; padding-bottom: 16px; }
+    .hero .lead { grid-row: 3; } .hero h1 { font-size: 36vw; margin-top: 40px; }
+    .doors { grid-column: 1; grid-row: 4; margin-top: 18px; }
+    .door.wide { grid-template-columns: 120px 1fr; }
+    .since { padding: 88px 0 72px; } .since .yr p { font-size: 44vw; } .since .t { padding: 24px 0 0 18px; margin-top: 18px; }
+    .who .r1 .b, .who .r1 .p, .who .r2 .q, .who .r2 .b { padding-left: 0; margin-top: 28px; padding-top: 0; }
+    .who .r1 .p .ph { aspect-ratio: 4 / 5; }
+    .where .body { grid-template-columns: 1fr; } .where .left, .where .mapbox { grid-column: 1; } .where .mapbox { order: -1; width: 100%; margin-bottom: 18px; }
+    .ccard { max-width: none; }
+    .nums .g2 { grid-template-columns: 1fr; } .nums .hold, .nums .list { grid-column: 1; }
+    .nums .hold .ph { position: static; aspect-ratio: 4 / 3; } .nums .list { margin-top: 24px; }
+    .nums .list > div { grid-template-columns: 1fr; } .nums .list .l { text-align: left; }
+    .ix a { grid-template-columns: 76px 1fr 44px; row-gap: 4px; column-gap: 14px; }
+    .ix .lg { display: none; } .ix .thumb { display: block; grid-column: 1; grid-row: 1 / span 3; aspect-ratio: 1; }
+    .ix h3 { grid-column: 2; font-size: 24px; } .ix .c, .ix .k { grid-column: 2; } .ix .go { grid-column: 3; grid-row: 1 / span 3; }
+    .where, .nums, .port, .news, .closing, .guide, .foot3.on-dark { margin-top: 88px; }
+    .guide .accimg { aspect-ratio: 4 / 3; margin-top: 32px; } .guide .acc { margin-top: 24px; }
+  }
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="#" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+<main id="main">
+  <!-- ===== 1. Header ===== -->
+  <section class="hero" id="hero">
+    <!-- Montage of the portfolio. Recommended: replace with one edited video of all ACTP properties (muted, looping, with a poster frame). -->
+    <div class="montage" id="montage" aria-hidden="true"></div>
+    <div class="in">
+      <span class="rule" aria-hidden="true"></span>
+      <div class="lead">
+        <div>
+          <p>The Arab Company for Touristic Projects transforms destinations into enduring landmarks that shape the future of tourism.</p>
+          <span class="now" aria-live="polite"><i></i><span id="now">Sheraton Cairo, on the Nile</span></span>
+        </div>
+        <h1><span class="sr-only">ACTP, Arab Company for Touristic Projects</span><span class="w2" aria-hidden="true"><span>ACTP</span></span></h1>
+      </div>
+      <nav class="doors" aria-label="Start here">
+        <a class="door wide" href="portfolio.html">
+          <figure class="ph"><img src="assets/img3/sheraton-dusk.jpg" alt=""></figure>
+          <span class="t"><b>Our portfolio</b><p>Eight assets from the Nile to the Red Sea, owned outright or held with leading hotel brands.</p></span>
+          <svg class="go" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+        <a class="door tile" href="investment.html">
+          <span class="mk" id="doorMark"></span>
+          <span class="lab"><b>Invest with us</b><p>Strategic investment, long-term vision.</p></span>
+        </a>
+        <a class="door photo" href="reports.html">
+          <figure class="ph"><img src="assets/img3/finance-hand.jpg" alt="" style="object-position:50% 30%"></figure>
+          <svg class="go" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span class="lab"><b>Reports</b><p>Governance, transparency, performance.</p></span>
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== 2. 1990 ===== -->
+  <section class="since wrap">
+    <div class="grid">
+      <div class="yr"><span class="idx">Established</span><p class="num" aria-label="1990" data-fade>19<span>90</span></p></div>
+      <div class="t rule-v"><p class="t-state" data-split>The Arab Company for Touristic Projects, a subsidiary of LAFICO, has been one of Egypt's leading tourism investors since 1990, across hospitality and real estate.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== 3. Who we are ===== -->
+  <section class="who wrap" id="who">
+    <header class="sh"><h2 class="t-h2" data-split>Who we are</h2>
+      <div class="side"><a class="pill" href="about.html"><span><span class="roll"><span>About ACTP</span><span>About ACTP</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a></div></header>
+    <div class="grid r1">
+      <p class="q t-state" data-fade>A diversified hospitality portfolio and strategic partnerships, from the Nile to the Red Sea.</p>
+      <div class="b t-body t-indent" data-fade style="--d:.15s">
+        <p>ACTP operates across the tourism and real estate sectors. It owns hotels outright, invests alongside the world's leading hotel brands, and runs the commercial assets that keep its destinations alive all year.</p>
+        <p>Every investment follows one idea: turn a destination into a landmark that lasts, and grow it with discipline.</p>
+      </div>
+      <div class="p rule-v"><figure class="ph" data-wipe><img src="assets/img3/sofitel.jpg" alt="Sofitel Cairo Downtown Nile at dusk" loading="lazy"></figure></div>
+    </div>
+    <div class="grid r2">
+      <figure class="ph" data-wipe><img src="assets/img3/meeting-wide.jpg" alt="ACTP's investment team in a meeting" loading="lazy"></figure>
+      <div class="q">
+        <span class="lafico"><span class="idx">Parent company</span><span class="idx">Est. 1981</span></span>
+        <p class="t-state" data-split>LAFICO brings strategic investment expertise and a long view to everything ACTP builds.</p>
+      </div>
+      <p class="b t-body t-indent" data-fade>The Libyan Foreign Investment Company, established in 1981, is ACTP's parent company, supporting its long-term vision for hospitality and tourism in Egypt.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4. Where we invest ===== -->
+  <section class="where on-dark" id="where">
+    <div class="wrap">
+      <header class="sh"><h2 class="t-h2" data-split>Where we invest</h2>
+        <div class="side legend"><span><i style="background:var(--teal);box-shadow:0 0 0 1px rgba(236,233,222,.35)"></i>Wholly owned</span><span><i style="background:var(--royal)"></i>Strategic partnerships</span><span><i style="background:var(--mellow)"></i>Selected</span></div></header>
+      <div class="body">
+        <div class="left">
+          <p class="t-body">Four destinations, eight assets. Choose a city to see everything ACTP holds there.</p>
+          <div class="cities" id="cities" role="group" aria-label="Cities"></div>
+          <article class="ccard" id="ccard" aria-live="polite">
+            <div class="main">
+              <div class="hd swap"><h3 id="cName">Cairo</h3><span id="cCount">2 assets</span></div>
+              <div class="pic" id="cPic"></div>
+              <ul id="cList"></ul>
+            </div>
+            <div class="tiles">
+              <div class="st swap" id="cSt"></div>
+              <div class="code swap" id="cCode">CAI</div>
+            </div>
+          </article>
+        </div>
+        <div class="mapbox" id="mapbox"><canvas id="egArt" aria-hidden="true"></canvas><div id="map"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Photograph that opens up: Invest with us ===== -->
+  <section class="grow" aria-label="Invest with us" style="margin-top:0">
+    <div class="stick">
+      <div class="frame"><img src="assets/img/main-pool.jpg" alt="The main pool at Swiss Inn Hurghada" loading="lazy"></div>
+      <div class="over"><div class="grid"><div style="grid-column:1/8"><span class="t-small" style="display:block;margin-bottom:14px">Invest with us</span><p class="t-h2">Investment expertise with a tourism vision</p></div>
+        <div style="grid-column:9/-1;align-self:end;justify-self:end;text-align:right"><p style="max-width:30ch;margin:0 0 18px auto;font-size:17px">Driving tourism growth through strategic investment and long-term vision.</p><a class="pill light" href="#"><span><span class="roll"><span>Invest with us</span><span>Invest with us</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a></div></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 5. Numbers ===== -->
+  <section class="nums wrap" id="numbers">
+    <header class="sh"><h2 class="t-h2" data-split>Our impact in numbers</h2>
+      <div class="side"><a class="pill" href="#"><span><span class="roll"><span>Explore our reports</span><span>Explore our reports</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a></div></header>
+    <div class="g2">
+      <div class="hold"><figure class="ph" data-wipe><img src="assets/img3/ballroom.jpg" alt="A ballroom set for a conference" loading="lazy"></figure></div>
+      <div class="list">
+        <div><span class="n num">1990</span><span class="l">The year ACTP was established</span></div>
+        <div><span class="n num" data-count>1,202</span><span class="l">Owned keys, in properties under full ownership</span></div>
+        <div><span class="n num" data-count>1,395</span><span class="l">Shared keys, in partnership properties</span></div>
+        <div><span class="n num"><span data-count>1.5</span><small>Bn EGP</small></span><span class="l">Paid-in capital</span></div>
+        <div class="tr"><p>The 2023–2025 transformation</p>
+          <ul><li><b class="num">$28M</b>Forecast net profit FY25</li><li><b class="num">325+</b>Rooms added</li><li><b class="num">121</b>Rooms renovated</li><li><b class="num">9</b>Meeting rooms added</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. Portfolio ===== -->
+  <section class="port wrap" id="port">
+    <header class="sh"><h2 class="t-h2" data-split>Beyond tourism investment</h2>
+      <div class="side"><div class="filters" role="group" aria-label="Filter the portfolio"><button aria-pressed="true" data-k="all">All</button><button aria-pressed="false" data-k="Owned">Owned</button><button aria-pressed="false" data-k="Partnership">Partnerships</button></div></div></header>
+    <div class="ix" id="ix"></div>
+  </section>
+  <div class="floatph" id="floatph" aria-hidden="true"></div>
+
+  <!-- ===== What guides our investments ===== -->
+  <section class="guide" id="guide">
+    <div class="wrap">
+      <header class="sh"><h2 class="t-h2" data-split>What guides our investments</h2></header>
+      <div class="grid">
+        <div class="accimg" id="accimg"><img class="on" src="assets/img3/pyramids.jpg" alt="The pyramids of Giza at sunset" loading="lazy"><img src="assets/img3/finance-hand.jpg" alt="A financial report under review" loading="lazy"><img src="assets/img/Dahab.webp" alt="Swiss Inn Dahab on the Red Sea" loading="lazy"></div>
+        <div class="acc" id="acc">
+          <details open><summary><i></i>Destinations that become landmarks</summary><div class="body"><div><p>We transform destinations into enduring landmarks that shape the future of tourism.</p></div></div></details>
+          <details><summary><i></i>Transparency and governance</summary><div class="body"><div><p>Supporting sustainable growth through governance, transparency and performance, with reports published for every shareholder.</p></div></div></details>
+          <details><summary><i></i>Growth that lasts</summary><div class="body"><div><p>Driving tourism growth through strategic investment and long-term vision, from renovation to new rooms and meeting space.</p></div></div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== News ===== -->
+  <section class="news wrap" id="news">
+    <header class="sh"><h2 class="t-h2" data-split>Latest updates</h2>
+      <div class="side"><a class="pill" href="media.html"><span><span class="roll"><span>Media</span><span>Media</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a></div></header>
+    <div class="rows" id="rows"></div>
+  </section>
+
+  <!-- ===== 7. Careers (reusable closing card) ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="closer">
+      <figure class="ph" data-wipe><img src="assets/img3/team.jpg" alt="Colleagues at work in ACTP's office" loading="lazy" style="object-position:50% 78%"></figure>
+      <div class="txt">
+        <span class="t-small">Careers</span>
+        <h2 class="t-h2" data-split>Invest your talent in tourism excellence</h2>
+        <p>Explore career opportunities and be part of ACTP's journey in transforming destinations into enduring tourism landmarks.</p>
+        <a class="pill wide light" href="#"><span><span class="roll"><span>Explore careers</span><span>Explore careers</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a>
+        <span class="mark" id="mark"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/data.js?v=30"></script>
+<script src="assets/egypt.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, E = window.ACTP_EGYPT, { Mosaic, shapeSVG } = window.ACTP, reduce = A.reduce, ARROW = A.ARROW;
+  A.init();
+
+  // Brand marks for the portfolio list. Hurghada City Center has no logo yet, so it is set in type.
+  const LOGO = { sheraton: "assets/logos/sheraton.svg", sofitel: "assets/logos/sofitel.svg", renaissance: "assets/logos/renaissance.svg", jw: "assets/logos/jw.svg",
+    hurghada: "assets/logos/swissinn-hurghada.svg", dahab: "assets/logos/swissinn-dahab.svg", swissintl: "assets/logos/swissinn-intl.svg", hcc: "assets/logos/hcc.svg" };
+  // Sheraton Cairo stands on the Giza bank of the Nile
+  A.byId("sheraton").gov = "Giza";
+
+  // ---- 1. Header montage: every property in turn (stand-in for a video) ----
+  const MT = [
+    ["assets/img3/sheraton-dusk.jpg", "Sheraton Cairo, on the Nile"], ["assets/img/Dahab.webp", "Swiss Inn Dahab, South Sinai"], ["assets/img3/jw.jpg", "JW Marriott Cairo, New Cairo"],
+    ["assets/img3/sofitel.jpg", "Sofitel Cairo Downtown Nile"], ["assets/img/main-pool.jpg", "Swiss Inn Hurghada, Red Sea"], ["assets/img/caibr-pool-0026-hor-wide.webp", "Renaissance Cairo Mirage City"], ["assets/img3/hcc-front.jpg", "Hurghada City Center"],
+  ];
+  const mont = document.getElementById("montage"), now = document.getElementById("now"), MDUR = 5200;
+  mont.innerHTML = MT.map(([src], i) => `<img src="${src}" alt="" ${i ? 'loading="lazy"' : ""}>`).join("");
+  const mimgs = [...mont.children]; let mi = 0;
+  document.querySelector(".hero .now").style.setProperty("--md", MDUR / 1000 + "s");
+  mimgs[0].classList.add("on");
+  if (!reduce) setInterval(() => { if (document.hidden) return; mimgs[mi].classList.remove("on"); mi = (mi + 1) % MT.length; mimgs[mi].classList.add("on"); now.textContent = MT[mi][1]; }, MDUR);
+  else document.querySelector(".hero .now i").style.display = "none";
+  document.getElementById("doorMark").innerHTML = shapeSVG("astroid");
+
+  // ---- 4. Map: colour-coded regions in the mark, a soft wave, no pointer play ----
+  const OWNED = new Set(A.P.filter((p) => p.kind === "Owned" && p.gov).map((p) => p.gov));
+  const PART = new Set(A.P.filter((p) => p.kind === "Partnership" && p.gov).map((p) => p.gov).filter((g) => !OWNED.has(g)));
+  const source = (selGov) => {
+    const w = 1000, VW = E.w + 60, VH = E.h + 60, s = w / VW, c = document.createElement("canvas");
+    c.width = w; c.height = Math.round(VH * s);
+    const x = c.getContext("2d"); x.scale(s, s); x.translate(20, 40);
+    // tone decides the shape: selected (square), owned (circle), partnership (diamond), the rest of Egypt (astroid, faded)
+    E.gov.forEach((g) => { x.fillStyle = g.name === selGov ? "#141414" : OWNED.has(g.name) ? "#4a4a4a" : PART.has(g.name) ? "#888" : "#c4c4c4"; x.fill(new Path2D(g.d)); });
+    return c;
+  };
+  const eg = new Mosaic(document.getElementById("egArt"), {
+    cell: (w) => Math.max(8, Math.round(w / 80)), fg: ["#fecb93", "#106470", "#3e67b1", "rgba(236, 233, 222, .2)"], bg: null, photo: false,
+    equalize: false, contrast: 0, highlight: .85, idle: true,
+  });
+  const map = A.map(document.getElementById("map"), { labels: false, card: null, auto: 0 });
+
+  // ---- City card: every asset in the chosen city, one shown at a time ----
+  const cities = A.CITIES, cityWrap = document.getElementById("cities"), card = document.getElementById("ccard");
+  const cName = document.getElementById("cName"), cCount = document.getElementById("cCount"), cPic = document.getElementById("cPic"), cList = document.getElementById("cList"), cSt = document.getElementById("cSt"), cCode = document.getElementById("cCode");
+  cityWrap.innerHTML = cities.map((c, i) => `<button type="button" aria-pressed="${i === 0}" data-i="${i}">${c.city}<small>${c.ids.length}</small></button>`).join("");
+  let ci = 0, ai = 0, timer, firstSel = true;
+  const pickAsset = (j) => {
+    ai = j; const c = cities[ci], p = A.byId(c.ids[j]);
+    cPic.querySelectorAll("img").forEach((im, k) => im.classList.toggle("on", k === j));
+    cList.querySelectorAll("button").forEach((b, k) => b.setAttribute("aria-pressed", k === j));
+    const own = p.kind === "Owned";
+    cSt.innerHTML = `${own ? "Wholly owned" : "Strategic partnership"}<b>${own ? "ACTP owns this asset." : "ACTP invests alongside."}</b>`;
+    cSt.style.background = own ? "var(--teal)" : "var(--royal)"; cSt.style.color = own ? "var(--off-white)" : "var(--white)";
+    if (p.gov) eg.setSource(source(p.gov), !firstSel).then(() => { if (firstSel) { firstSel = false; } else eg.setProgress(.5); });
+  };
+  const pickCity = (i, j = 0) => {
+    ci = i; const c = cities[i], list = c.ids.map(A.byId);
+    cityWrap.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.i === i));
+    card.classList.add("out");
+    setTimeout(() => {
+      cName.textContent = c.city; cCount.textContent = list.length === 1 ? "1 asset" : `${list.length} assets`; cCode.textContent = c.code;
+      cPic.innerHTML = list.map((p) => `<img src="${p.img}" alt="${p.name}">`).join("");
+      cList.innerHTML = list.map((p) => `<li><button type="button" aria-pressed="false"><i style="background:${p.kind === "Owned" ? "var(--teal)" : "var(--royal)"};box-shadow:0 0 0 1px rgba(236,233,222,.35)"></i>${p.name}<small>${p.keys ? p.keys + " keys" : p.kind === "Owned" ? "Owned" : "Partner"}</small></button></li>`).join("");
+      cList.querySelectorAll("button").forEach((b, k) => (b.onclick = () => { pickAsset(k); cycle(); }));
+      pickAsset(j);
+      card.classList.remove("out");
+    }, card.dataset.ready ? 240 : 0);
+    card.dataset.ready = 1;
+    map.show(i, 0);
+  };
+  // auto tour: each asset of a city, then the next city; any choice restarts the clock
+  const cycle = () => {
+    clearTimeout(timer); if (reduce) return;
+    timer = setTimeout(() => { const c = cities[ci]; if (ai + 1 < c.ids.length) pickAsset(ai + 1); else pickCity((ci + 1) % cities.length); cycle(); }, 6000);
+  };
+  cityWrap.querySelectorAll("button").forEach((b) => (b.onclick = () => { pickCity(+b.dataset.i); cycle(); }));
+  document.querySelectorAll("#map .pin").forEach((pin, i) => {
+    pin.addEventListener("click", () => { pickCity(i); cycle(); });
+    pin.addEventListener("pointerenter", () => { if (ci !== i) { pickCity(i); cycle(); } });
+    pin.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickCity(i); cycle(); } });
+  });
+  pickCity(0);
+  const box = document.getElementById("mapbox");
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) { if (eg.progress < .5) eg.to(.5, reduce ? 0 : 2200); cycle(); } else clearTimeout(timer); }, { threshold: .25 }).observe(box);
+
+  // ---- 6. Portfolio index: brand marks, a photo that follows the pointer ----
+  const ix = document.getElementById("ix"), fp = document.getElementById("floatph");
+  ix.innerHTML = A.P.map((p, i) => `<a href="property.html?id=${p.id}" data-k="${p.kind}" data-i="${i}"><span class="lg">${LOGO[p.id] ? `<img src="${LOGO[p.id]}" alt="">` : `<span class="word">Hurghada City Center</span>`}</span><figure class="ph thumb"><img src="${p.img}" alt="" loading="lazy"></figure><h3>${p.name}</h3><span class="c">${p.city}${p.keys ? " · " + p.keys + " keys" : ""}</span><span class="k"><i style="background:${p.kind === "Owned" ? "var(--teal)" : "var(--royal)"}"></i>${p.kind === "Owned" ? "Wholly owned" : "Partnership"}</span><span class="go">${ARROW}</span></a>`).join("");
+  fp.innerHTML = A.P.map((p) => `<img src="${p.img}" alt="">`).join("");
+  const fimgs = [...fp.children];
+  let fx = 0, fy = 0, tx = 0, ty = 0, running = false;
+  const loop = () => { fx += (tx - fx) * .16; fy += (ty - fy) * .16; fp.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%) rotate(${(tx - fx) * .03}deg)`; if (running) requestAnimationFrame(loop); };
+  if (matchMedia("(hover: hover)").matches && !reduce) {
+    ix.addEventListener("pointerenter", (e) => { fx = tx = e.clientX + 170; fy = ty = e.clientY; running = true; fp.classList.add("on"); loop(); });
+    ix.addEventListener("pointerleave", () => { running = false; fp.classList.remove("on"); });
+    ix.addEventListener("pointermove", (e) => { tx = e.clientX + 170; ty = e.clientY; const a = e.target.closest("a"); if (a) fimgs.forEach((im, k) => im.classList.toggle("on", k === +a.dataset.i)); });
+  }
+  document.querySelectorAll(".filters button").forEach((b) => (b.onclick = () => {
+    document.querySelectorAll(".filters button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    ix.querySelectorAll("a").forEach((a) => a.classList.toggle("hide", b.dataset.k !== "all" && a.dataset.k !== b.dataset.k));
+  }));
+
+  // ---- News ----
+  const NID = ["rooms-added", "lobby-reopens", "meeting-rooms"];
+  document.getElementById("rows").innerHTML = window.ACTP_DATA.updates.map((u, ui) => `<a href="news.html?id=${NID[ui]}"><figure class="ph"><img src="${u.img}" alt="" loading="lazy"></figure><span class="meta"><span class="idx">${u.type}</span><span class="idx">${u.date}</span></span><h3>${u.title}</h3><span class="go">${ARROW}</span></a>`).join("");
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+
+  A.accordion(document.getElementById("acc"), document.getElementById("accimg"));
+  // ---- Footer: the name in the mark, parting under the pointer ----
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+</body>
+</html>

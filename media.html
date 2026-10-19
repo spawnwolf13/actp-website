@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACTP Media</title>
+<meta name="description" content="News, events and updates from across ACTP's hospitality portfolio.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  /* header: the words spread across a teal page, two photographs placed around them */
+  .mhero { position: relative; min-height: 100svh; background: var(--teal); color: var(--off-white); padding: 100px var(--g) var(--g); display: flex; flex-direction: column; overflow: hidden; }
+  .mhero .crumbs a, .mhero .crumbs span { color: var(--off-white); background: rgba(236, 233, 222, .14); text-decoration: none; }
+  .mhero .ph { position: absolute; border-radius: var(--r); animation: ppIn 1.4s var(--e-out) both; }
+  .mhero .f1 { right: 4%; top: 9%; width: 22%; aspect-ratio: 4 / 3; animation-delay: .15s; }
+  .mhero .f2 { left: 30%; top: 30%; width: 16%; aspect-ratio: 3 / 4; animation-delay: .3s; }
+  .mhero .words { position: relative; z-index: 2; margin-top: auto; display: flex; align-items: baseline; font: 400 clamp(84px, 13vw, 240px)/.8 var(--serif); text-transform: uppercase; white-space: nowrap; }
+  .mhero .words .amp { font-style: italic; color: var(--mellow); }
+  .mhero .w2 { display: inline-block; overflow: hidden; padding: 0 .04em .04em; }
+  .mhero .w2 > span { display: inline-block; animation: phUp 1.3s var(--e-out) .2s both; }
+  .mhero .w2:nth-child(2) > span { animation-delay: .3s; } .mhero .w2:nth-child(3) > span { animation-delay: .4s; }
+  .mhero .line { position: relative; z-index: 2; margin-top: 22px; max-width: 32ch; font: 300 clamp(20px, 1.6vw, 26px)/1.3 var(--sans); }
+
+  /* the latest story */
+  .lead { margin-top: 140px; }
+  .story { display: grid; grid-template-columns: 1fr 1.25fr .9fr; gap: 12px; margin-top: 40px; text-decoration: none; }
+  .story .txt { display: flex; flex-direction: column; padding: 22px; border-radius: 12px; background: var(--warm-grey); color: var(--ink); min-height: clamp(380px, 52vh, 520px); }
+  .story .meta { display: flex; gap: 10px; font: 500 13px var(--sans); color: var(--ink-2); }
+  .story h3 { margin-top: auto; font: 400 clamp(28px, 2.4vw, 40px)/1.12 var(--serif); }
+  .story p { margin-top: 14px; font: 400 15px/1.55 var(--sans); color: var(--ink-2); }
+  .story .read { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font: 500 15px var(--sans); }
+  .story .read svg { width: 16px; height: 16px; transition: transform .6s var(--e-out); }
+  .story:hover .read svg { transform: translateX(6px); }
+  .story .big { border-radius: 12px; overflow: hidden; }
+  .story .big img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--e-out); }
+  .story:hover .big img { transform: scale(1.04); }
+  .story .thumbs { display: grid; grid-template-rows: 1fr 1fr; gap: 12px; }
+  .story .thumbs .ph { border-radius: 12px; }
+  .story .thumbs .more { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(14, 20, 38, .55); color: var(--white); font: 300 44px var(--sans); }
+  .story:focus-visible { outline: 3px solid var(--sandy); outline-offset: 4px; }
+
+  /* all stories */
+  .all { margin-top: 160px; }
+  .seg { display: inline-flex; padding: 4px; gap: 4px; border-radius: 999px; background: rgba(41, 57, 89, .07); }
+  .seg button { all: unset; cursor: pointer; padding: 11px 18px; border-radius: 999px; font: 500 15px var(--sans); color: var(--ink-2); transition: background .4s var(--e-out), color .4s; }
+  .seg button[aria-selected="true"] { background: var(--ink); color: var(--white); }
+  .seg button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 16px; margin-top: 40px; }
+  .card { display: grid; align-content: start; gap: 14px; text-decoration: none; opacity: 0; transform: translateY(14px); animation: rIn .7s var(--e-out) forwards; animation-delay: var(--d, 0s); }
+  @keyframes rIn { to { opacity: 1; transform: none; } }
+  .card .ph { aspect-ratio: 4 / 3; }
+  .card .ph img { transition: transform 1.2s var(--e-out); }
+  .card:hover .ph img { transform: scale(1.05); }
+  .card .badge { position: absolute; left: 12px; top: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 64px; padding: 8px 10px; border-radius: 10px; background: rgba(14, 20, 38, .82); color: var(--white); backdrop-filter: blur(6px); }
+  .card .badge b { font: 300 32px/1 var(--sans); }
+  .card .badge small { font: 500 11px var(--sans); margin-top: 4px; }
+  .card .meta { display: flex; gap: 8px; align-items: center; }
+  .card .meta .when { font: 500 13px var(--sans); color: var(--ink-3); }
+  .card h3 { font: 400 clamp(22px, 1.7vw, 27px)/1.2 var(--serif); max-width: 24ch; }
+  .card:hover h3 { color: var(--royal); }
+  .card:focus-visible { outline: 3px solid var(--sandy); outline-offset: 4px; }
+  .note { display: flex; gap: 10px; align-items: center; margin-top: 36px; font: 500 13px var(--sans); color: var(--ink-3); }
+  .note .dot { width: 8px; height: 8px; background: var(--sandy); transform: rotate(45deg); }
+
+  /* signup card */
+  .closing { margin-top: 160px; }
+  .talk .steps { margin-top: auto; }
+  .talk .field { display: flex; gap: 8px; max-width: 460px; }
+  .talk input { flex: 1; min-width: 0; height: 52px; padding: 0 18px; border: 0; border-radius: 12px; background: rgba(255, 255, 255, .14); color: var(--white); font: 400 16px var(--sans); }
+  .talk input::placeholder { color: rgba(255, 255, 255, .78); }
+  .talk input:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button { all: unset; cursor: pointer; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--off-white); color: var(--ink); transition: transform .6s var(--e-out); }
+  .talk button:hover { transform: rotate(-45deg); }
+  .talk button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button svg { width: 18px; height: 18px; }
+  .talk .thanks { display: block; min-height: 1.4em; margin-top: 10px; font: 500 14px var(--sans); }
+  .talk.done .field { display: none; }
+  .talk .direct { margin-top: 10px; font: 400 14px var(--sans); opacity: .9; }
+  .talk .direct a { color: var(--white); }
+
+  @media (max-width: 900px) {
+    .mhero { min-height: 88svh; }
+    .mhero .f1 { width: 46%; top: 16%; right: 6%; } .mhero .f2 { width: 34%; left: 8%; top: 34%; }
+    .lead, .all, .closing { margin-top: 88px; }
+    .story { grid-template-columns: 1fr; } .story .txt { min-height: 0; order: 2; } .story .big { aspect-ratio: 4 / 3; } .story .thumbs { display: none; }
+    .cards { grid-template-columns: 1fr; }
+    .seg { flex-wrap: wrap; border-radius: 16px; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Header, after Aker's News & Press: the words spread across a coloured page, two photographs ===== -->
+  <section class="mhero on-dark">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><span class="idx">Media</span></div>
+    <figure class="ph f1"><img src="assets/img3/ballroom.jpg" alt="A ballroom set for a conference"></figure>
+    <figure class="ph f2"><img src="assets/img/r-room.jpg" alt="A renovated guest room"></figure>
+    <h1 class="words" data-fit><span class="w2"><span>Media</span></span></h1>
+    <p class="line">News, events and updates from across ACTP's portfolio.</p>
+  </section>
+
+  <!-- ===== The latest story, after Aker's story rows: a text card, one large photo, thumbnails ===== -->
+  <section class="lead wrap">
+    <header class="sh"><h2 class="t-h2" data-split>The latest from ACTP</h2></header>
+    <a class="story" id="leadStory" href="#"></a>
+  </section>
+
+  <!-- ===== All stories, filtered by the Figma tabs ===== -->
+  <section class="all wrap" id="all">
+    <header class="sh"><h2 class="t-h2" data-split>All stories</h2>
+      <div class="side"><div class="seg" role="tablist" aria-label="Story type">
+        <button role="tab" aria-selected="true" data-k="All">All</button>
+        <button role="tab" aria-selected="false" data-k="News" tabindex="-1">News</button>
+        <button role="tab" aria-selected="false" data-k="Events" tabindex="-1">Events</button>
+        <button role="tab" aria-selected="false" data-k="Updates" tabindex="-1">Updates</button>
+      </div></div></header>
+    <div class="cards" id="cards" aria-live="polite"></div>
+    <p class="note"><span class="dot" aria-hidden="true"></span>Sample stories built from figures in the content document, to be replaced with ACTP's news.</p>
+  </section>
+
+  <!-- ===== Two closing cards ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="pair">
+      <form class="pcard teal talk" id="press" action="#" novalidate>
+        <span class="mark" id="mark"></span>
+        <span class="t-small">Media enquiries</span>
+        <h2>Stay close to ACTP's news</h2>
+        <p>Get new stories, events and updates by email, or contact our team for press enquiries.</p>
+        <div class="steps">
+          <label class="sr-only" for="pressIn">Your email</label>
+          <div class="field"><input id="pressIn" type="email" placeholder="Your email" autocomplete="email"><button type="submit" aria-label="Subscribe"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+          <span class="thanks" aria-live="polite" id="pressMsg"></span>
+          <p class="direct">Press: <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+        </div>
+      </form>
+      <a class="pcard photo" href="contact.html">
+        <img src="assets/img3/people-a.jpg" alt="" loading="lazy" style="object-position:50% 60%">
+        <span class="t-small">Contact us</span>
+        <h2>Let's build enduring destinations together</h2>
+        <p>Investment opportunities, strategic partnerships or careers: our team is ready to connect.</p>
+        <span class="pill light"><span><span class="roll"><span>Get in touch</span><span>Get in touch</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/news.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, { shapeSVG } = window.ACTP, N = window.ACTP_NEWS, fmt = N.fmt;
+  A.init();
+  const ARR = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+  const byDate = [...N].sort((a, b) => b.date.localeCompare(a.date));
+  const url = (s) => `news.html?id=${s.id}`;
+
+  // ---- the latest story
+  const s = byDate[0], lead = document.getElementById("leadStory");
+  lead.href = url(s);
+  lead.innerHTML = `<div class="txt"><span class="meta"><span class="idx">${s.type}</span><span>${fmt(s.date)}</span></span><h3>${s.title}</h3><p>${s.lead}</p><span class="read">Read the story ${ARR}</span></div>
+    <figure class="big"><img src="${s.img}" alt=""></figure>
+    <div class="thumbs"><figure class="ph"><img src="${s.gallery[0]}" alt=""></figure><figure class="ph"><img src="${s.gallery[1]}" alt=""><span class="more">+${s.gallery.length - 1}</span></figure></div>`;
+
+  // ---- all stories; events carry a date badge, after Aker's community events
+  const cards = document.getElementById("cards"), tabs = [...document.querySelectorAll(".seg button")];
+  let kind = "All";
+  const render = () => {
+    const list = byDate.filter((x) => kind === "All" || x.type === kind);
+    cards.innerHTML = list.map((x, i) => {
+      const d = new Date(x.date + "T00:00:00");
+      const badge = x.type === "Events" ? `<span class="badge"><b class="num">${String(d.getDate()).padStart(2, "0")}</b><small>${d.toLocaleDateString("en-GB", { month: "long" })}</small></span>` : "";
+      return `<a class="card" href="${url(x)}" style="--d:${i * .06}s"><figure class="ph"><img src="${x.img}" alt="" loading="lazy">${badge}</figure><span class="meta"><span class="idx">${x.type}</span><span class="when">${fmt(x.date)}</span></span><h3>${x.title}</h3></a>`;
+    }).join("");
+  };
+  tabs.forEach((t, k) => {
+    t.onclick = () => { kind = t.dataset.k; tabs.forEach((x) => { x.setAttribute("aria-selected", x === t); x.tabIndex = x === t ? 0 : -1; }); render(); };
+    t.onkeydown = (e) => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); const j = (k + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length; tabs[j].click(); tabs[j].focus(); } };
+  });
+  render();
+
+  // ---- news by email
+  const form = document.getElementById("press"), input = document.getElementById("pressIn"), msg = document.getElementById("pressMsg");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!/\S+@\S+\.\S+/.test(input.value)) { msg.textContent = "Please enter a valid email."; input.focus(); return; }
+    form.classList.add("done"); msg.textContent = "Thank you. You'll hear from us when there's news.";
+  });
+
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>

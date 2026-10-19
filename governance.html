@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACTP Governance</title>
+<meta name="description" content="How ACTP strengthens governance: investment policies, capital structure, ERP and reporting, internal improvement and operational development.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  .commit { margin-top: 140px; }
+  .hl { font-style: italic; }
+  .commit .r1 { margin-top: 56px; align-items: start; }
+  .commit .r1 .q { grid-column: 1 / 6; }
+  .commit .r1 .b { grid-column: 6 / 9; align-self: end; padding-right: 8px; }
+  .commit .r1 .p { grid-column: 9 / -1; padding-left: 16px; }
+  .commit .r1 .p .ph { aspect-ratio: 3 / 4; }
+
+  /* five pillars: the section is tall; inside, one screen holds while the pillars advance with the scroll */
+  .pillars { margin-top: 160px; background: var(--ink); color: var(--off-white); height: 420vh; }
+  .pillars .stick { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; overflow: hidden; }
+  .pillars .pin { width: 100%; }
+  .pgrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); margin-top: 40px; align-items: center; }
+  .plist { grid-column: 1 / 4; display: grid; }
+  .plist li { position: relative; }
+  .plist button { all: unset; cursor: pointer; display: block; width: 100%; box-sizing: border-box; padding: 16px 0; border-top: 1px solid var(--line-dark); font: 400 clamp(19px, 1.5vw, 24px)/1.2 var(--serif); color: rgba(236, 233, 222, .42); transition: color .5s var(--e-out), padding .6s var(--e-out); }
+  .plist li:last-child button { border-bottom: 1px solid var(--line-dark); }
+  .plist button[aria-current="true"] { color: var(--mellow); padding-left: 14px; }
+  .plist button:hover { color: var(--off-white); }
+  .plist button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .plist i { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--mellow); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .pimg { grid-column: 5 / 9; aspect-ratio: 4 / 5; background: #1d2742; }
+  .pimg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(100% 0 0 0); transform: scale(1.1); transition: clip-path 1s var(--e-io), transform 1.4s var(--e-out); }
+  .pimg img.on { clip-path: inset(0 0 0 0); transform: none; }
+  .pimg img.was { clip-path: inset(0 0 0 0); transform: none; transition: none; }
+  .ptext { grid-column: 9 / -1; transition: opacity .35s var(--e-out), transform .6s var(--e-out); }
+  .ptext.out { opacity: 0; transform: translateY(14px); }
+  .ptext h3 { font: 400 clamp(34px, 3.2vw, 54px)/1.02 var(--serif); color: var(--mellow); }
+  .ptext p { margin-top: 20px; max-width: 34ch; font: 300 clamp(19px, 1.45vw, 23px)/1.45 var(--sans); color: #d5dae6; }
+
+  /* reports card with the magnifier drawn live */
+  .closing { margin-top: 160px; }
+  .rep canvas { position: absolute; z-index: 1; right: -2%; bottom: -4%; width: 66%; height: 92%; pointer-events: none; }
+  .rep > *:not(canvas) { z-index: 2; }
+
+  @media (max-width: 900px) {
+    .commit { margin-top: 88px; } .closing { margin-top: 104px; }
+    .commit .r1 .b, .commit .r1 .p { padding-left: 0; margin-top: 24px; }
+    .pillars { height: auto; margin-top: 104px; padding: 26px 0 48px; }
+    .pillars .stick { position: static; height: auto; display: block; }
+    .pgrid { grid-template-columns: 1fr; row-gap: 20px; }
+    .plist, .pimg, .ptext { grid-column: 1; }
+    .plist { display: flex; overflow-x: auto; gap: 18px; scrollbar-width: none; }
+    .plist li { flex: none; } .plist button { border: 0 !important; white-space: nowrap; padding: 10px 0; font-size: 18px; } .plist button[aria-current="true"] { padding-left: 0; }
+    .pimg { aspect-ratio: 4 / 3; }
+    .rep canvas { width: 70%; height: 55%; }
+  }
+
+  /* option label chips, only for choosing between the three */
+  .optlab { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 6px; background: var(--mellow); color: var(--ink); font: 500 12px var(--sans); }
+  .optlab.dark { background: var(--ink); color: var(--off-white); }
+
+  /* ===== Option A ===== */
+  .optA { margin-top: 160px; background: #0d1426; color: var(--off-white); height: 520vh; }
+  .optA .stick { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; padding-top: 86px; overflow: hidden; }
+  .aart img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 1.4s var(--e-io), transform 7s linear; }
+  .aart img.on { opacity: 1; transform: scale(1); }
+  .atabs { display: grid; grid-template-columns: 1.3fr repeat(5, 1fr); align-items: center; padding: 0 var(--g); border-top: 1px solid rgba(236, 233, 222, .22); height: 76px; }
+  .atabs .lead { display: flex; align-items: center; gap: 12px; padding-right: 24px; border-right: 1px solid rgba(236, 233, 222, .22); font: 500 15px var(--sans); }
+  .atabs .lead i { width: 7px; height: 7px; background: var(--royal); transform: rotate(45deg); }
+  .atabs .tabs { display: contents; }
+  .atabs button { all: unset; cursor: pointer; text-align: center; font: 400 15px/1.25 var(--sans); color: rgba(236, 233, 222, .5); padding: 6px 8px; transition: color .4s; }
+  .atabs button[aria-current="true"] { color: var(--off-white); font-weight: 500; }
+  .atabs button:hover { color: var(--off-white); }
+  .atabs button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .aline { position: relative; height: 1px; background: rgba(236, 233, 222, .22); }
+  .aline i { position: absolute; left: 0; top: 0; height: 1px; width: var(--x, 0px); background: var(--mellow); }
+  .aline b { position: absolute; top: -5px; left: var(--x, 0px); width: 10px; height: 10px; margin-left: -5px; background: var(--mellow); transform: rotate(45deg); box-shadow: 0 0 0 4px rgba(254, 203, 147, .16); }
+  .abody { flex: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); align-items: center; padding-top: 22px; padding-bottom: 22px; min-height: 0; }
+  .aart { grid-column: 1 / 6; height: 100%; max-height: 640px; aspect-ratio: 1; border-radius: 8px; background: #141c31; position: relative; overflow: hidden; }
+  .aart svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .5s; }
+  .aart svg.on { opacity: 1; }
+  .aart .ln { fill: none; stroke: rgba(236, 233, 222, .3); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 1600; stroke-dashoffset: 1600; transition: stroke-dashoffset 1.8s var(--e-out); }
+  .aart .hl2 { fill: none; stroke: var(--mellow); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-dasharray: 1600; stroke-dashoffset: 1600; transition: stroke-dashoffset 2.2s .4s var(--e-out); }
+  .aart svg.on .ln, .aart svg.on .hl2 { stroke-dashoffset: 0; }
+  .aart .nd { fill: var(--off-white); opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity .5s 1s; }
+  .aart svg.on .nd { opacity: 1; animation: ndPulse 2.6s ease-in-out 1.4s infinite; }
+  @keyframes ndPulse { 50% { transform: scale(1.6); } }
+  .aart .orb { fill: var(--mellow); }
+  .atext { grid-column: 7 / 12; transition: opacity .35s var(--e-out), transform .6s var(--e-out); }
+  .atext.out { opacity: 0; transform: translateY(12px); }
+  .atext h3 { font: 400 clamp(34px, 3vw, 52px)/1.05 var(--serif); }
+  .atext p { margin-top: 16px; max-width: 38ch; font: 400 clamp(17px, 1.3vw, 20px)/1.5 var(--sans); color: #d5dae6; }
+
+  @media (max-width: 900px) {
+    .optA { margin-top: 104px; }
+    .optA { height: auto; } .optA .stick { position: relative; height: auto; padding: 26px 0 32px; }
+    .atabs { display: flex; overflow-x: auto; gap: 18px; height: auto; padding: 14px var(--g); scrollbar-width: none; }
+    .atabs { flex-wrap: wrap; } .atabs .lead { flex: 0 0 100%; border-right: 0; padding: 0 0 6px; font: 400 30px/1.1 var(--serif); } .atabs .lead i { display: none; } .atabs button { white-space: nowrap; padding: 6px 0; }
+    .aline { display: none; }
+    .abody { grid-template-columns: 1fr; row-gap: 20px; } .aart, .atext { grid-column: 1; } .aart { height: auto; width: 100%; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Identity header ===== -->
+  <section class="idhero">
+    <img src="assets/img3/manager.jpg" alt="An ACTP manager reviewing a report with colleagues" style="object-position:50% 40%">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><a class="idx" href="about.html">About</a><i></i><span class="idx">Governance</span></div>
+    <div class="in">
+      <h1 data-fit><span class="w2"><span>Governance</span></span></h1>
+      <p class="line">Supporting strategic transformation through structured governance.</p>
+    </div>
+  </section>
+
+  <!-- ===== Commitment ===== -->
+  <section class="commit wrap">
+    <header class="sh"><h2 class="t-h2" data-split>Our commitment</h2></header>
+    <div class="grid r1">
+      <p class="q t-state" data-split>Governance is how ACTP turns <em class="hl">long-term vision</em> into accountable performance.</p>
+      <div class="b t-body t-indent" data-fade style="--d:.15s">
+        <p>ACTP is committed to strengthening governance practices through structured investment policies, operational transparency, reporting systems, and continuous organizational development.</p>
+      </div>
+      <div class="p rule-v"><figure class="ph" data-wipe><img src="assets/img3/meeting-wide.jpg" alt="ACTP's leadership in a meeting" loading="lazy"></figure></div>
+    </div>
+  </section>
+
+  <!-- ===== How we strengthen governance: a held screen, tabs with a travelling dot; photographs crossfade as in the home page header ===== -->
+  <section class="optA on-dark" id="optA" aria-label="How we strengthen governance">
+    <div class="stick">
+      <div class="atabs">
+        <span class="lead"><i></i>How we strengthen governance</span>
+        <div class="tabs" id="aTabs"></div>
+      </div>
+      <div class="aline"><i id="aFill"></i><b id="aDot"></b></div>
+      <div class="abody wrap">
+        <div class="aart" id="aArt"></div>
+        <div class="atext" id="aText" aria-live="polite"><h3 id="aTitle"></h3><p id="aDesc"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Two closing cards: reports, with the magnifier drawn live, and leadership ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="pair">
+      <a class="pcard royal rep" href="reports.html" id="repCard">
+        <canvas id="magArt" aria-hidden="true"></canvas>
+        <span class="t-small">Reports</span>
+        <h2>View our reports</h2>
+        <p>ACTP's financial reports and disclosures, in one place for shareholders and partners.</p>
+        <span class="pill light"><span><span class="roll"><span>View reports</span><span>View reports</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+      <a class="pcard photo" href="leadership.html">
+        <img src="assets/img3/team.jpg" alt="" loading="lazy" style="object-position:50% 70%">
+        <span class="t-small">Leadership</span>
+        <h2>Meet the people behind ACTP</h2>
+        <p>The Board of Directors and Executive Management guiding long-term growth.</p>
+        <span class="pill light"><span><span class="roll"><span>Meet our leadership</span><span>Meet our leadership</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples-art.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, reduce = A.reduce;
+  A.init();
+
+  // ===================== Three options for the five pillars =====================
+  const PIL = [
+    { t: "Corporate governance", d: "Preparing structured investment policies and internal procedures to support long-term operational excellence.", img: "assets/img3/manager.jpg", pos: .5, shape: "square", bg: "var(--off-white)", fg: "var(--ink)" },
+    { t: "Capital structure optimization", d: "Strengthening the company's capital structure through strategic financial restructuring initiatives.", img: "assets/img3/meeting-room.jpg", pos: .5, shape: "diamond", bg: "var(--warm-grey)", fg: "var(--ink)" },
+    { t: "ERP and reporting", d: "Implementing integrated ERP and reporting systems to enhance operational efficiency and financial transparency.", img: "assets/img3/finance-hand.jpg", pos: .5, shape: "circle", bg: "var(--royal)", fg: "var(--white)" },
+    { t: "Internal improvement", d: "Enhancing internal operations and asset control through continuous improvement programs and operational systems development.", img: "assets/img3/team.jpg", pos: .5, shape: "astroid", bg: "var(--teal)", fg: "var(--off-white)" },
+    { t: "Operational development", d: "Supporting growth through the opening of renovated facilities and ongoing enhancement initiatives.", img: "assets/img3/hotel-room.jpg", pos: .5, shape: "square", bg: "var(--ink)", fg: "var(--off-white)" },
+  ];
+  const phoneW = () => innerWidth <= 900;
+  const prog = (sec) => { const r = sec.getBoundingClientRect(), t = sec.offsetHeight - innerHeight; return Math.min(.9999, Math.max(0, -r.top / t)); };
+
+  // ---- Each pillar's photograph (from the Figma Governance component); pillars crossfade with a slow zoom, as in the home page header
+  (function optionA() {
+    const sec = document.getElementById("optA"), tabs = document.getElementById("aTabs"), art = document.getElementById("aArt"), text = document.getElementById("aText");
+    const title = document.getElementById("aTitle"), desc = document.getElementById("aDesc"), line = sec.querySelector(".aline");
+    tabs.innerHTML = PIL.map((p) => `<button type="button" aria-current="false">${p.t}</button>`).join("");
+    art.innerHTML = PIL.map((p, i) => `<img src="${p.img}" alt="${p.t}" ${i ? 'loading="lazy"' : ""}>`).join("");
+    const imgs = [...art.children], btns = [...tabs.children];
+    let cur = -1;
+    const show = (i) => {
+      if (i === cur) return; const first = cur < 0; cur = i;
+      btns.forEach((b, k) => b.setAttribute("aria-current", k === i));
+      imgs.forEach((im, k) => im.classList.toggle("on", k === i));
+      text.classList.add("out");
+      setTimeout(() => { title.textContent = PIL[i].t; desc.textContent = PIL[i].d; text.classList.remove("out"); }, first ? 0 : 300);
+    };
+    const tick = () => {
+      if (phoneW()) return;
+      const k = prog(sec), f = k * PIL.length, i = Math.floor(f);
+      show(i);
+      // the dot travels under the tabs, from the first tab's centre to the last
+      const b0 = btns[0].getBoundingClientRect(), bl = btns[PIL.length - 1].getBoundingClientRect(), lr = line.getBoundingClientRect();
+      const x0 = b0.left + b0.width / 2 - lr.left, x1 = bl.left + bl.width / 2 - lr.left;
+      line.style.setProperty("--x", (x0 + (x1 - x0) * Math.min(1, f / (PIL.length - 1))) + "px");
+    };
+    btns.forEach((b, i) => (b.onclick = () => { if (phoneW()) { show(i); return; } const t = sec.offsetHeight - innerHeight; scrollTo({ top: sec.offsetTop + t * (i + .05) / PIL.length, behavior: A.reduce ? "auto" : "smooth" }); }));
+    addEventListener("scroll", tick, { passive: true }); addEventListener("resize", tick);
+    show(0); tick();
+    if (!A.reduce) setInterval(() => { if (phoneW() && !document.hidden) show((cur + 1) % PIL.length); }, 5000);
+  })();
+
+  // reports card: the magnifier from the Figma design, drawn in the mark and parting under the pointer
+  A.art(document.getElementById("magArt"), "assets/art/magnifier.jpg", { cell: (w) => Math.max(5, Math.round(w / 80)), fg: "#ece9de", scale: .86, pad: .04, interact: "swell", radius: .2, hot: "#fecb93", idle: true, pointerTarget: document.getElementById("repCard") });
+
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>

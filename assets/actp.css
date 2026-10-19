@@ -1,0 +1,52 @@
+/* ACTP shared foundation: brand fonts, brand palette tokens, reset. No look of its own. */
+@font-face { font-family: "Biolinum"; src: url("fonts/LinBiolinum_R.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Biolinum"; src: url("fonts/LinBiolinum_RB.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Biolinum"; src: url("fonts/LinBiolinum_RI.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("fonts/Satoshi-Light.otf") format("opentype"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("fonts/Satoshi-Regular.otf") format("opentype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("fonts/Satoshi-Medium.otf") format("opentype"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("fonts/Satoshi-Bold.otf") format("opentype"); font-weight: 700; font-display: swap; }
+
+:root {
+  /* Brand palette, exact values from the ACTP colour sheet */
+  --midnight: #293959;
+  --mellow: #fecb93;
+  --royal: #3e67b1;
+  --teal: #106470;
+  --sandy: #fbb062;
+  --warm-grey: #c8c2b2;
+  --off-white: #ece9de;
+  --paper: #f6f4ee;          /* Off-White lifted one step, for long reading grounds */
+
+  --serif: "Biolinum", "Georgia", serif;
+  --sans: "Satoshi", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+  --gutter: clamp(20px, 6vw, 112px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--sans); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, canvas, svg, video { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+:focus-visible { outline: 3px solid var(--sandy); outline-offset: 3px; }
+.skip { position: absolute; left: 16px; top: -60px; z-index: 100; padding: 10px 16px; background: var(--midnight); color: var(--off-white); }
+.skip:focus { top: 16px; }
+
+/* The ACTP logo is supplied as a black PNG; invert it for dark grounds. */
+.logo { height: 56px; width: auto; }
+.logo--light { filter: invert(1); }
+
+/* Option switcher shown on every prototype page */
+.switcher { position: fixed; z-index: 90; right: 16px; bottom: 16px; display: flex; gap: 4px; padding: 4px; background: #111a2c; color: #fff; font: 500 13px/1 var(--sans); }
+.switcher a { padding: 9px 12px; text-decoration: none; color: #c9d1e4; }
+.switcher a[aria-current="page"] { background: var(--mellow); color: var(--midnight); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

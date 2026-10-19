@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About ACTP</title>
+<meta name="description" content="Who ACTP is: a LAFICO subsidiary investing in Egypt's tourism since 1990. Vision, mission, values, leadership and governance.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  .who, .lead, .gov, .closing { margin-top: 140px; }
+  .vmstack { margin-top: 140px; }
+  /* who we are and governance: statement, paragraph, photo */
+  .who .r1, .gov .g1 { margin-top: 56px; align-items: start; }
+  .who .r1 .q, .gov .g1 .q { grid-column: 1 / 6; }
+  .who .r1 .b, .gov .g1 .b { grid-column: 6 / 9; align-self: end; padding-right: 8px; }
+  .who .r1 .p, .gov .g1 .p { grid-column: 9 / -1; padding-left: 16px; }
+  .who .r1 .p .ph { aspect-ratio: 3 / 4; } .gov .g1 .p .ph { aspect-ratio: 1 / 1; }
+  .hl { font-style: italic; }
+  /* longer statements in the colour bands */
+  .cband .say { font-size: clamp(32px, 3.1vw, 52px); max-width: 22ch; }
+  #mission .say { font-size: clamp(30px, 2.7vw, 46px); max-width: 26ch; }
+
+  /* leadership band */
+  .band { position: relative; border-radius: 14px; overflow: hidden; min-height: clamp(480px, 66vh, 620px); color: var(--white); display: grid; }
+  .band .ph { position: absolute; inset: 0; border-radius: 0; }
+  .band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14, 20, 38, .88) 0%, rgba(14, 20, 38, .55) 48%, rgba(14, 20, 38, .05) 82%); pointer-events: none; }
+  .band .txt { position: relative; z-index: 1; padding: 28px; display: flex; flex-direction: column; max-width: 720px; }
+  .band .t-small { opacity: .85; }
+  .band h2 { margin-top: 16px; max-width: 18ch; color: var(--off-white); }
+  .band h2 .hl { color: var(--mellow); }
+  .band .one { margin: 22px 0 28px; max-width: 46ch; font: 400 17px/1.55 var(--sans); color: #e3e7f0; }
+  .band .pill { margin-top: auto; align-self: start; }
+
+  /* governance initiatives */
+  .inits { margin-top: 64px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); }
+  .inits .t-small { grid-column: 1 / 4; color: var(--ink-3); padding-top: 18px; }
+  .inits ul { grid-column: 4 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--col); }
+  .inits li { display: flex; gap: 16px; align-items: center; padding: 18px 0 22px; border-top: 1px solid var(--line); }
+  .inits li .dot { flex: none; width: 10px; height: 10px; background: var(--royal); transform: rotate(45deg); }
+  .inits li b { font: 400 clamp(24px, 2vw, 32px)/1.15 var(--serif); }
+
+  @media (max-width: 900px) {
+    .who, .values, .lead, .gov, .closing, .cband.royal { margin-top: 88px; }
+    .who .r1 .b, .who .r1 .p, .gov .g1 .b, .gov .g1 .p { padding-left: 0; margin-top: 24px; }
+    .inits .t-small, .inits ul { grid-column: 1 / -1; } .inits ul { grid-template-columns: 1fr; }
+  }
+
+  /* vision is held while mission slides over it */
+  .vmstack { position: relative; }
+  .vmstack .cband { min-height: 100svh; display: flex; flex-direction: column; }
+  .vmstack .cband > .wrap { flex: 1; display: flex; flex-direction: column; }
+  .vmstack .cband .inner { flex: 1; min-height: 0; }
+  #vision { position: sticky; top: 0; z-index: 1; }
+  #mission { position: relative; z-index: 2; }
+
+  /* values: giant words around a photograph, drawn in as you scroll */
+  .vwords { margin-top: 0; background: var(--off-white); padding: 26px 0 120px; overflow: hidden; }
+  .vwords .sh { border-color: rgba(41, 57, 89, .2); }
+  .vwords .stage { position: relative; height: clamp(720px, 100vh, 940px); margin-top: 24px; }
+  .vphoto { position: absolute; left: 38%; top: 50%; width: min(24vw, 360px); aspect-ratio: 4 / 5; transform: translateY(-50%); }
+  .vphoto img { transform: scale(var(--ps, 1.12)); }
+  .vw { position: absolute; z-index: 2; transform: translateX(var(--tx, 0)); will-change: transform; }
+  .vw h3 { font: 400 clamp(64px, 7.4vw, 136px)/.86 var(--serif); letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap; }
+  .vw p { display: flex; gap: 12px; align-items: center; margin-top: 16px; max-width: 30ch; font: 400 17px/1.45 var(--sans); color: var(--ink-2); }
+  .vw .ico { flex: none; width: 26px; height: 26px; color: var(--royal); }
+  .vw .ico svg { width: 100%; height: 100%; }
+  .vw.w1 { left: 0; top: 2%; }
+  .vw.w2 { right: 0; top: 40%; text-align: right; } .vw.w2 p { margin-left: auto; flex-direction: row-reverse; }
+  .vw.w3 { left: 6%; bottom: 0; }
+
+  /* the conversation card */
+  .talk .field { margin-top: auto; display: flex; gap: 8px; max-width: 460px; }
+  .talk input { flex: 1; min-width: 0; height: 52px; padding: 0 18px; border: 0; border-radius: 12px; background: rgba(255, 255, 255, .14); color: var(--white); font: 400 16px var(--sans); }
+  .talk input::placeholder { color: rgba(255, 255, 255, .78); }
+  .talk input:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button { all: unset; cursor: pointer; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--off-white); color: var(--ink); transition: transform .6s var(--e-out); }
+  .talk button:hover { transform: rotate(-45deg); }
+  .talk button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button svg { width: 18px; height: 18px; }
+  .talk .thanks { display: none; margin-top: 12px; font: 500 15px var(--sans); }
+  .talk.sent .thanks { display: block; } .talk.sent .field { opacity: .5; pointer-events: none; }
+
+  @media (max-width: 900px) {
+    .vmstack { margin-top: 88px; }
+    #vision { position: relative; }
+    .vmstack .cband { min-height: 0; }
+    .vwords .stage { height: auto; display: grid; gap: 36px; }
+    .vwords .stage .vphoto, .vwords .stage .vw { position: relative; inset: auto; transform: none; }
+    .vphoto { width: 100%; }
+    .vw h3 { font-size: 13vw; } .vw.w2 { text-align: left; } .vw.w2 p { margin-left: 0; flex-direction: row; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Identity header ===== -->
+  <section class="idhero">
+    <img src="assets/img3/pyramids.jpg" alt="The pyramids of Giza at sunset">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><span class="idx">About</span></div>
+    <div class="in">
+      <h1 data-fit><span class="w2"><span>About</span></span></h1>
+      <p class="line">A subsidiary of LAFICO, investing in Egypt's tourism and real estate since 1990.</p>
+    </div>
+  </section>
+
+  <!-- ===== Who we are ===== -->
+  <section class="who wrap" id="who">
+    <header class="sh"><h2 class="t-h2" data-split>Who we are</h2></header>
+    <div class="grid r1">
+      <p class="q t-state" data-split>Transforming tourism destinations into <em class="hl">enduring landmarks.</em></p>
+      <div class="b t-body t-indent" data-fade style="--d:.15s">
+        <p>Since 1990, the Arab Company for Touristic Projects (ACTP), a subsidiary of LAFICO, has been one of the leading companies in tourism investment, operating across the tourism and real estate sectors through a diversified hospitality portfolio and strategic partnerships in Egypt.</p>
+        <p>ACTP focuses on transforming destinations into enduring landmarks, combining investment expertise with a long-term vision for sustainable growth.</p>
+      </div>
+      <div class="p rule-v"><figure class="ph" data-wipe><img src="assets/img3/sofitel.jpg" alt="Sofitel Cairo Downtown Nile at dusk" loading="lazy"></figure></div>
+    </div>
+  </section>
+
+  <!-- ===== Vision and mission: two colour bands, each with a live drawing ===== -->
+  <div class="vmstack">
+  <section class="cband royal" id="vision" aria-label="Our vision">
+    <div class="wrap"><div class="inner" id="visionBand">
+      <div class="txt">
+        <span class="lab">Our vision</span>
+        <p class="say" data-split>To pioneer enduring tourism destinations that become <em>distinctive landmarks</em> through sustainable practices.</p>
+      </div>
+      <div class="art"><canvas id="eyeArt" role="img" aria-label="An eye, drawn in the four shapes of the ACTP mark"></canvas></div>
+    </div></div>
+  </section>
+  <section class="cband teal" id="mission" aria-label="Our mission">
+    <div class="wrap"><div class="inner" id="missionBand">
+      <div class="txt">
+        <span class="lab">Our mission</span>
+        <p class="say" data-split>To drive <em>long-term value</em> in Egypt's tourism sector through strategic hospitality investment, destination development, and operational excellence.</p>
+      </div>
+      <div class="art"><canvas id="targetArt" role="img" aria-label="A dart in a target, drawn in the four shapes of the ACTP mark"></canvas></div>
+    </div></div>
+  </section>
+  </div>
+
+  <!-- ===== Values: the three words, set huge around a photograph ===== -->
+  <section class="vwords" id="values">
+    <div class="wrap">
+      <header class="sh"><h2 class="t-h2" data-split>Our values</h2></header>
+      <div class="stage" id="vstage">
+        <figure class="ph vphoto" id="vphoto"><img src="assets/img3/people-a.jpg" alt="ACTP colleagues working together in a meeting room" loading="lazy" style="object-position:50% 55%"></figure>
+        <div class="vw w1" data-dir="-1"><h3>Excellence</h3><p><span class="ico" id="i1"></span>Delivering excellence across all operations.</p></div>
+        <div class="vw w2" data-dir="1"><h3>Innovation</h3><p><span class="ico" id="i2"></span>Driving progress through effective solutions.</p></div>
+        <div class="vw w3" data-dir="-1"><h3>Teamwork</h3><p><span class="ico" id="i3"></span>Creating value through collaborative expertise.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Leadership band ===== -->
+  <section class="lead wrap" id="lead">
+    <div class="band">
+      <figure class="ph" data-wipe><img src="assets/img3/meeting-wide.jpg" alt="ACTP's leadership in a meeting" loading="lazy"></figure>
+      <div class="txt">
+        <span class="t-small">Leadership</span>
+        <h2 class="t-h2" data-split>Strategic direction and <em class="hl">operational excellence</em></h2>
+        <p class="one">ACTP's Board of Directors provides strategic oversight and investment direction, while Executive Management leads operations and development strategy.</p>
+        <a class="pill light" href="leadership.html"><span><span class="roll"><span>Meet our leadership</span><span>Meet our leadership</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Governance ===== -->
+  <section class="gov wrap" id="gov">
+    <header class="sh"><h2 class="t-h2" data-split>Governance</h2>
+      <div class="side"><a class="pill" href="governance.html"><span><span class="roll"><span>Explore governance practices</span><span>Explore governance practices</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a></div></header>
+    <div class="grid g1">
+      <p class="q t-state" data-split>Supporting <em class="hl">strategic transformation.</em></p>
+      <p class="b t-body t-indent" data-fade>ACTP is committed to strengthening corporate governance through structured investment policies, operational transparency, financial reporting, and continuous organizational development.</p>
+      <div class="p rule-v"><figure class="ph" data-wipe><img src="assets/img3/finance-hand.jpg" alt="A financial report under review" loading="lazy" style="object-position:50% 35%"></figure></div>
+    </div>
+    <div class="inits">
+      <p class="t-small">Key initiatives</p>
+      <ul>
+        <li data-fade><span class="dot" aria-hidden="true"></span><b>ERP implementation</b></li>
+        <li data-fade style="--d:.08s"><span class="dot" aria-hidden="true"></span><b>Reporting systems enhancement</b></li>
+        <li data-fade style="--d:.16s"><span class="dot" aria-hidden="true"></span><b>Capital structure optimization</b></li>
+        <li data-fade style="--d:.24s"><span class="dot" aria-hidden="true"></span><b>Operational improvement programs</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Two closing cards ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="pair">
+      <a class="pcard photo" href="investment.html">
+        <img src="assets/img3/jw.jpg" alt="" loading="lazy">
+        <span class="t-small">Investments</span>
+        <h2>Invest with us</h2>
+        <p>Driving tourism growth through strategic investment and long-term vision.</p>
+        <span class="pill light"><span><span class="roll"><span>Explore investments</span><span>Explore investments</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+      <form class="pcard royal talk" action="#" onsubmit="event.preventDefault(); this.classList.add('sent');">
+        <span class="mark" id="mark"></span>
+        <span class="t-small">Start a conversation</span>
+        <h2>Let's talk about your next investment</h2>
+        <p>Leave your email and ACTP's investment team will get in touch.</p>
+        <label class="sr-only" for="talkEmail">Your email</label>
+        <div class="field"><input id="talkEmail" type="email" placeholder="Your email" autocomplete="email" required><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+        <span class="thanks" aria-live="polite">Thank you. The team will be in touch.</span>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples-art.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, { shapeSVG } = window.ACTP;
+  A.init();
+  // vision and mission: live drawings that part under the pointer, the same treatment as the ACTP letters
+  A.art(document.getElementById("eyeArt"), "assets/art/eye.jpg", { cell: (w) => Math.max(6, Math.round(w / 74)), fg: "#fecb93", scale: .86, pad: .08, interact: "swell", radius: .16, hot: "#ece9de", idle: true, pointerTarget: document.getElementById("visionBand") });
+  A.art(document.getElementById("targetArt"), "assets/art/target.jpg", { cell: (w) => Math.max(6, Math.round(w / 74)), fg: "#ece9de", scale: .86, pad: .08, interact: "swell", radius: .16, hot: "#fecb93", idle: true, pointerTarget: document.getElementById("missionBand") });
+  // value figures: one shape for excellence, the astroid for innovation, all four shapes together for teamwork
+  const inner = (k) => shapeSVG(k).replace(/<\/?svg[^>]*>/g, "");
+  document.getElementById("i1").innerHTML = shapeSVG("diamond");
+  document.getElementById("i2").innerHTML = shapeSVG("astroid");
+  document.getElementById("i3").innerHTML = `<svg viewBox="0 0 21 21" aria-hidden="true"><g>${inner("square")}</g><g transform="translate(11 0)">${inner("circle")}</g><g transform="translate(0 11)">${inner("diamond")}</g><g transform="translate(11 11) scale(${10 / 360.2189632})">${inner("astroid")}</g></svg>`;
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+  // values: the words travel in from either side and settle around the photograph as the section scrolls by
+  const stage = document.getElementById("vstage"), words = [...stage.querySelectorAll(".vw")], photo = document.getElementById("vphoto");
+  const tick = () => {
+    if (innerWidth <= 900 || A.reduce) { words.forEach((w) => w.style.removeProperty("--tx")); return; }
+    const r = stage.getBoundingClientRect(), k = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight + r.height * .45)));
+    const e = 1 - Math.pow(1 - k, 3);
+    words.forEach((w) => w.style.setProperty("--tx", `${(1 - e) * 14 * +w.dataset.dir}vw`));
+    photo.style.setProperty("--ps", 1.12 - e * .12);
+  };
+  addEventListener("scroll", tick, { passive: true }); addEventListener("resize", tick); tick();
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>

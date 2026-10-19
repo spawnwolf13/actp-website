@@ -1,0 +1,43 @@
+/* ACTP motion layer: the small, modern components every page shares. Transform/opacity only; all off under reduced motion. */
+
+/* Preloader: the mark's four shapes arrive, then the curtain lifts */
+.preload { position: fixed; inset: 0; z-index: 200; background: var(--midnight); display: grid; place-items: center; transition: transform .9s cubic-bezier(.7, 0, .2, 1); }
+.preload.done { transform: translateY(-100%); }
+.preload .marks { display: flex; gap: 14px; }
+.preload .marks span { width: 30px; height: 30px; color: var(--mellow); opacity: 0; transform: translateY(14px) scale(.6); animation: pre-in .5s cubic-bezier(.2, .7, .1, 1) forwards; }
+.preload .marks span:nth-child(2) { animation-delay: .1s; } .preload .marks span:nth-child(3) { animation-delay: .2s; } .preload .marks span:nth-child(4) { animation-delay: .3s; }
+.preload .marks svg { width: 100%; height: 100%; }
+@keyframes pre-in { to { opacity: 1; transform: none; } }
+
+/* Word-by-word headline reveal */
+[data-split] .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+[data-split] .w > span { display: inline-block; transform: translateY(105%); filter: blur(6px); opacity: 0; transition: transform .9s cubic-bezier(.2, .7, .1, 1), filter .9s, opacity .6s; transition-delay: calc(var(--i) * 55ms); }
+[data-split].in .w > span { transform: none; filter: none; opacity: 1; }
+
+/* Image reveal: a wipe upward, the picture settling from a slight zoom */
+[data-reveal] { clip-path: inset(100% 0 0 0); transition: clip-path 1.2s cubic-bezier(.7, 0, .2, 1); }
+[data-reveal] > img, img[data-reveal] { transform: scale(1.12); transition: transform 1.6s cubic-bezier(.2, .7, .1, 1), clip-path 1.2s cubic-bezier(.7, 0, .2, 1); }
+[data-reveal].in { clip-path: inset(0 0 0 0); }
+[data-reveal].in > img, img[data-reveal].in { transform: none; }
+
+/* Magnetic buttons */
+[data-magnetic] { transition: transform .35s cubic-bezier(.2, .7, .1, 1), background .3s; will-change: transform; }
+
+/* Cursor: a dot that becomes a labelled disc over the interactive mosaics */
+.cursor { position: fixed; z-index: 150; left: 0; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--mellow); pointer-events: none; display: grid; place-items: center; transition: width .35s cubic-bezier(.2, .7, .1, 1), height .35s cubic-bezier(.2, .7, .1, 1), margin .35s cubic-bezier(.2, .7, .1, 1), opacity .3s; mix-blend-mode: normal; }
+.cursor span { font: 500 13px var(--sans); color: var(--midnight); opacity: 0; transition: opacity .2s; white-space: nowrap; }
+.cursor.big { width: 84px; height: 84px; margin: -42px 0 0 -42px; }
+.cursor.big span { opacity: 1; }
+.cursor.link { width: 40px; height: 40px; margin: -20px 0 0 -20px; opacity: .5; }
+@media (hover: none) { .cursor { display: none; } }
+
+/* Marquee of the portfolio, with the mark's shapes between names */
+.marquee { overflow: hidden; padding-block: 28px; white-space: nowrap; user-select: none; }
+.marquee .track { display: inline-flex; align-items: center; gap: 40px; padding-right: 40px; will-change: transform; }
+.marquee .item { display: inline-flex; align-items: center; gap: 40px; font: 400 clamp(36px, 5vw, 76px)/1 var(--serif); }
+.marquee .item svg { width: .38em; height: .38em; flex: none; color: var(--mellow); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-split] .w > span, [data-reveal], [data-reveal] > img, img[data-reveal] { transform: none !important; filter: none !important; opacity: 1 !important; clip-path: none !important; }
+  .preload { display: none; }
+}

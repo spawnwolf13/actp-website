@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invest with ACTP</title>
+<meta name="description" content="Investing in the future of Egyptian hospitality: ACTP's investment approach, Egypt's tourism potential, reports and how to contact the investment team.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  .hl { font-style: italic; }
+  /* statement beside the live drawing */
+  .state { margin-top: 140px; }
+  .state .grid { align-items: center; }
+  .st-txt { grid-column: 1 / 7; }
+  .st-txt .t-state { max-width: 22ch; }
+  .figs { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 36px; margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .figs b { display: block; font: 400 clamp(40px, 3.6vw, 60px)/1 var(--serif); }
+  .figs b small { font: 500 .32em var(--sans); margin-left: .2em; }
+  .figs span:not([data-count]) { display: block; margin-top: 8px; font: 500 14px var(--sans); color: var(--ink-2); }
+  .st-art { grid-column: 7 / -1; position: relative; aspect-ratio: 4 / 3; border-radius: 14px; background: var(--off-white); overflow: hidden; }
+  .st-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* four pillars: a photograph rises behind the card on hover */
+  /* our impact, after Aker: large light figures, captions at the foot of tall cells, hairlines, the right column set lower */
+  .impact { margin-top: 160px; }
+  .igrid { display: grid; grid-template-columns: 1fr 1fr; }
+  .icol { display: flex; flex-direction: column; }
+  .icol.r { border-left: 1px solid var(--line); padding-left: 12px; padding-top: 22vh; }
+  .icol:not(.r) { padding-right: 12px; }
+  .ihead { min-height: 34vh; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+  .ihead .t-body { max-width: 34ch; }
+  .cell { display: flex; flex-direction: column; justify-content: space-between; min-height: clamp(300px, 46vh, 460px); padding: 22px 0 22px; border-bottom: 1px solid var(--line); }
+  .cell b { font: 300 clamp(80px, 10vw, 168px)/.9 var(--sans); letter-spacing: -.03em; color: #2b2f38; }
+  .cell b span { font: inherit; }
+  .cell > span { font: 500 16px/1.4 var(--sans); color: var(--ink-2); max-width: 36ch; }
+  .pill4 { margin-top: 160px; }
+  .cards4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 48px; }
+  .c4 { position: relative; display: flex; flex-direction: column; min-height: clamp(420px, 56vh, 520px); padding: 22px; border-radius: 14px; overflow: hidden; background: var(--ink); color: var(--off-white); isolation: isolate; }
+  .c4 > img { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; clip-path: inset(100% 0 0 0); transform: scale(1.12); transition: clip-path .9s var(--e-io), transform 1.4s var(--e-out); }
+  .c4::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(14, 20, 38, .92) 10%, rgba(14, 20, 38, .3) 70%); opacity: 0; transition: opacity .8s; }
+  .c4:hover > img, .c4:focus-within > img { clip-path: inset(0 0 0 0); transform: none; }
+  .c4:hover::after, .c4:focus-within::after { opacity: 1; }
+  .c4 .ico { width: 54px; height: 54px; color: var(--mellow); }
+  .c4 .ico svg { width: 100%; height: 100%; transition: transform 1.2s var(--e-out); }
+  .c4:hover .ico svg { transform: rotate(90deg); }
+  .c4 h3 { margin-top: auto; font: 400 clamp(28px, 2.3vw, 38px)/1.05 var(--serif); color: var(--mellow); }
+  .c4 p { margin-top: 14px; font: 400 15px/1.5 var(--sans); color: #d5dae6; max-width: 30ch; }
+
+  /* the conversation card: three short steps */
+  .closing { margin-top: 160px; }
+  .talk .steps { margin-top: auto; }
+  .talk .step { display: block; margin-bottom: 10px; font: 500 13px var(--sans); opacity: .85; }
+  .talk .field { display: flex; gap: 8px; max-width: 460px; }
+  .talk input { flex: 1; min-width: 0; height: 52px; padding: 0 18px; border: 0; border-radius: 12px; background: rgba(255, 255, 255, .14); color: var(--white); font: 400 16px var(--sans); }
+  .talk input::placeholder { color: rgba(255, 255, 255, .78); }
+  .talk input:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button { all: unset; cursor: pointer; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--off-white); color: var(--ink); transition: transform .6s var(--e-out); }
+  .talk button:hover { transform: rotate(-45deg); }
+  .talk button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .talk button svg { width: 18px; height: 18px; }
+  .talk .thanks { display: block; min-height: 1.4em; margin-top: 10px; font: 500 14px var(--sans); }
+  .talk.done .field { display: none; }
+
+  @media (max-width: 900px) {
+    .state, .pill4, .closing, .impact { margin-top: 88px; }
+    .igrid { grid-template-columns: 1fr; } .icol.r { border-left: 0; padding: 0; } .icol:not(.r) { padding: 0; }
+    .ihead { min-height: 0; gap: 18px; } .cell { min-height: 220px; } .cell b { font-size: 21vw; }
+    .st-txt, .st-art { grid-column: 1 / -1; } .st-art { margin-top: 28px; }
+    .figs { gap: 22px; }
+    .cards4 { grid-template-columns: 1fr; } .c4 { min-height: 300px; }
+    .c4 > img { clip-path: inset(0 0 0 0); transform: none; } .c4::after { opacity: 1; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Identity header ===== -->
+  <section class="idhero">
+    <img src="assets/img/aquapool.jpg" alt="The Aquapool at Swiss Inn Hurghada in the morning">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><span class="idx">Investment</span></div>
+    <div class="in">
+      <h1 data-fit><span class="w2"><span>Investment</span></span></h1>
+      <p class="line">Investing in the future of Egyptian hospitality.</p>
+    </div>
+  </section>
+
+  <!-- ===== Statement, with the hand and coins drawn live ===== -->
+  <section class="state wrap">
+    <div class="grid">
+      <div class="st-txt">
+        <p class="t-state" data-split>ACTP creates <em class="hl">long-term investment value</em> through hospitality assets, strategic partnerships, and destination development across Egypt's tourism sector.</p>
+      </div>
+      <div class="st-art" id="coinBox"><canvas id="coinArt" role="img" aria-label="A hand holding coins, drawn in the four shapes of the ACTP mark"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ===== Our impact: after Aker's home page — two staggered columns of large figures under hairlines ===== -->
+  <section class="impact wrap" id="impact">
+    <div class="igrid">
+      <div class="icol">
+        <div class="ihead"><h2 class="t-h2" data-split>Our impact</h2><p class="t-body">The scale of ACTP's hospitality portfolio and the results of its 2023 to 2025 transformation.</p></div>
+        <div class="cell"><b class="num" data-count>1,202</b><span>Owned keys, in properties under full ownership.</span></div>
+        <div class="cell"><b class="num"><span data-count>1.5</span>Bn</b><span>EGP paid-in capital.</span></div>
+        <div class="cell"><b class="num"><span data-count>325</span>+</b><span>Rooms added across the portfolio since 2023.</span></div>
+        <div class="cell"><b class="num" data-count>9</b><span>New meeting rooms for business events.</span></div>
+      </div>
+      <div class="icol r">
+        <div class="cell"><b class="num">1990</b><span>The year ACTP was established.</span></div>
+        <div class="cell"><b class="num" data-count>1,395</b><span>Shared keys, in partnership properties.</span></div>
+        <div class="cell"><b class="num">$<span data-count>28</span>M</b><span>Forecast net profit, FY25.</span></div>
+        <div class="cell"><b class="num" data-count>121</b><span>Rooms renovated, with a renovated lobby.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Strategic hospitality investment: four pillars, a photo opens on hover ===== -->
+  <section class="pill4 wrap" id="strategy">
+    <header class="sh"><h2 class="t-h2" data-split>Strategic hospitality investment</h2></header>
+    <div class="cards4" id="cards4"></div>
+  </section>
+
+  <!-- ===== Egypt's tourism potential: a photograph that opens up ===== -->
+  <section class="grow" aria-label="Egypt's tourism potential" style="margin-top:160px">
+    <div class="stick">
+      <div class="frame"><img src="assets/img/beach-morning.jpg" alt="The beach at Swiss Inn Hurghada in the morning" loading="lazy"></div>
+      <div class="over"><div class="grid">
+        <div style="grid-column:1/7"><span class="t-small" style="display:block;margin-bottom:14px">Egypt's tourism potential</span><p class="t-h2">Among the region's leading destinations</p></div>
+        <div style="grid-column:8/-1;align-self:end"><p style="font-size:17px;line-height:1.55;max-width:44ch">Egypt continues to stand among the region's leading tourism destinations, supported by cultural heritage, strategic geography, and expanding hospitality opportunities across city and coastal destinations. ACTP invests in destinations aligned with the future growth of Egypt's tourism sector through hospitality development and strategic investment initiatives.</p></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ===== Two closing cards: reports, and a conversation with the investment team ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="pair">
+      <a class="pcard photo" href="reports.html">
+        <img src="assets/img3/finance-hand.jpg" alt="" loading="lazy" style="object-position:50% 35%">
+        <span class="t-small">Reports</span>
+        <h2>Reports and financial transparency</h2>
+        <p>ACTP is committed to strengthening transparency through financial reporting, governance practices, and operational reporting systems supporting long-term investment confidence.</p>
+        <span class="pill light"><span><span class="roll"><span>View reports</span><span>View reports</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+      <form class="pcard royal talk" id="talk" action="#" novalidate>
+        <span class="mark" id="mark"></span>
+        <span class="t-small">Contact our investment team</span>
+        <h2>Hospitality growth with strategic partnerships</h2>
+        <p>ACTP continues to strengthen investor confidence through hospitality partnerships, operational enhancement initiatives, and long-term destination development across Egypt's tourism sector.</p>
+        <div class="steps">
+          <span class="step num" id="stepNo">1 / 3</span>
+          <label class="sr-only" for="talkIn" id="talkLab">Your email</label>
+          <div class="field"><input id="talkIn" type="email" placeholder="Your email" autocomplete="email"><button type="submit" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+          <span class="thanks" aria-live="polite" id="talkMsg"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples-art.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, { shapeSVG } = window.ACTP;
+  A.init();
+
+  // the hand and coins from the Figma header, drawn live in the mark and parting under the pointer
+  A.art(document.getElementById("coinArt"), "assets/art/coins.jpg", { cell: (w) => Math.max(6, Math.round(w / 90)), fg: ["#293959", "#3e67b1", "#3e67b1", "#fbb062"], scale: .86, pad: .08, interact: "swell", radius: .16, hot: "#fecb93", idle: true, pointerTarget: document.getElementById("coinBox") });
+
+  // four pillars from the Figma file; icons built from the mark's shapes
+  const inner = (k) => shapeSVG(k).replace(/<\/?svg[^>]*>/g, "");
+  const ICONS = [
+    `<svg viewBox="0 0 21 21" aria-hidden="true"><g transform="translate(0 0) scale(${10 / 360.2189632})">${inner("astroid")}</g><g transform="translate(11 0)">${inner("square")}</g><g transform="translate(0 11)">${inner("circle")}</g><g transform="translate(11 11)">${inner("diamond")}</g></svg>`,
+    shapeSVG("circle"), shapeSVG("diamond"), shapeSVG("astroid"),
+  ];
+  const C4 = [
+    { t: "Portfolio diversification", d: "A diversified hospitality portfolio spanning city hotels, Red Sea destinations, and strategic hospitality partnerships.", img: "assets/img3/sheraton-dusk.jpg" },
+    { t: "Operational transformation", d: "Continuous enhancement initiatives across hospitality assets, guest experiences, operational systems, and destination upgrades.", img: "assets/img3/hotel-room.jpg" },
+    { t: "Long-term partnerships", d: "Strategic hospitality partnerships supporting portfolio expansion and investment growth across Egypt's tourism sector.", img: "assets/img3/jw.jpg" },
+    { t: "Investment backing", d: "Supported by LAFICO's long-term investment vision across tourism, hospitality, and real estate sectors.", img: "assets/img3/meeting-wide.jpg" },
+  ];
+  document.getElementById("cards4").innerHTML = C4.map((c, i) => `<article class="c4" tabindex="0" data-fade style="--d:${i * .08}s"><img src="${c.img}" alt="" loading="lazy"><span class="ico">${ICONS[i]}</span><h3>${c.t}</h3><p>${c.d}</p></article>`).join("");
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll("#cards4 [data-fade]").forEach((el) => io.observe(el));
+
+  // conversation in three short steps, after Aker's Invest with Us form
+  const form = document.getElementById("talk"), input = document.getElementById("talkIn"), lab = document.getElementById("talkLab"), no = document.getElementById("stepNo"), msg = document.getElementById("talkMsg");
+  const STEPS = [
+    { label: "Your email", type: "email", ph: "Your email", ok: (v) => /\S+@\S+\.\S+/.test(v), err: "Please enter a valid email." },
+    { label: "Your name and organization", type: "text", ph: "Name, organization", ok: (v) => v.trim().length > 1, err: "Please tell us who you are." },
+    { label: "What would you like to discuss?", type: "text", ph: "Your message", ok: (v) => v.trim().length > 1, err: "Please add a short message." },
+  ];
+  let step = 0;
+  const set = () => { const s = STEPS[step]; lab.textContent = s.label; input.type = s.type; input.placeholder = s.ph; input.value = ""; no.textContent = `${step + 1} / 3`; };
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!STEPS[step].ok(input.value)) { msg.textContent = STEPS[step].err; input.focus(); return; }
+    msg.textContent = "";
+    if (step < 2) { step++; set(); input.focus(); }
+    else { form.classList.add("done"); no.textContent = "Sent"; msg.textContent = "Thank you. ACTP's investment team will be in touch."; }
+  });
+  set();
+
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>

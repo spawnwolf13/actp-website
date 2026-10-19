@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACTP Portfolio</title>
+<meta name="description" content="ACTP's hospitality portfolio: eight assets from the Nile to the Red Sea, wholly owned and in strategic partnership with leading hotel brands.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  .hl { font-style: italic; }
+  /* header: the title above two halves, one per way of holding; the half under the pointer opens wider */
+  .split { height: 100svh; min-height: 700px; display: flex; flex-direction: column; padding: 100px var(--g) var(--g); }
+  .split .crumbs a, .split .crumbs span { text-decoration: none; }
+  .ttl { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; margin: 18px 0; }
+  .ttl h1 { min-width: 0; font: 400 clamp(64px, 8.6vw, 156px)/.8 var(--serif); text-transform: uppercase; letter-spacing: .005em; margin: 0 0 -.03em -.04em; white-space: nowrap; }
+  .ttl h1 .w2, .half h2 .w2 { display: inline-block; overflow: hidden; padding-bottom: .04em; }
+  .ttl h1 .w2 > span, .half h2 .w2 > span { display: inline-block; animation: phUp 1.3s var(--e-out) .2s both; }
+  .ttl h1 .w2:nth-child(2) > span { animation-delay: .3s; }
+  .ttl .line { max-width: 26ch; padding-bottom: 6px; font: 400 clamp(18px, 1.3vw, 21px)/1.4 var(--serif); text-align: right; }
+  .halves { flex: 1; min-height: 0; display: flex; gap: 8px; }
+  .half { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; padding: 22px 24px 20px; border-radius: 14px; overflow: hidden; color: var(--white); background: var(--ink); isolation: isolate; transition: flex-grow 1.1s var(--e-out); animation: hIn 1.3s var(--e-out) both; }
+  .half + .half { animation-delay: .12s; }
+  @keyframes hIn { from { opacity: 0; transform: translateY(36px); } }
+  .halves:hover .half:hover, .half:focus-within { flex-grow: 1.45; }
+  .half .imgs { position: absolute; inset: 0; z-index: -2; }
+  .half .imgs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 1.4s ease, transform 7s linear; }
+  .half .imgs img.on { opacity: 1; transform: scale(1); }
+  .half::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(14, 20, 38, .82) 0%, rgba(14, 20, 38, .2) 48%, rgba(14, 20, 38, .45) 100%); transition: background .8s; }
+  .halves:hover .half:not(:hover)::before { background: rgba(14, 20, 38, .62); }
+  .half .cover { position: absolute; inset: 0; z-index: 1; }
+  .half .cover:focus-visible { outline: 3px solid var(--sandy); outline-offset: -3px; border-radius: 14px; }
+  .half .hd { position: relative; display: flex; justify-content: space-between; align-items: start; gap: 16px; pointer-events: none; }
+  .half .tag { display: inline-flex; align-items: center; gap: 10px; font: 500 14px var(--sans); }
+  .half .tag i { width: 10px; height: 10px; transform: rotate(45deg); background: var(--mellow); }
+  .half[data-k="Partnership"] .tag i { background: #8fb0ea; }
+  .half .fig { text-align: right; font: 500 14px var(--sans); }
+  .half .fig b { display: block; font: 300 clamp(44px, 4.2vw, 76px)/.9 var(--sans); letter-spacing: -.02em; }
+  .half .fig em { display: block; font-style: normal; opacity: .8; margin-top: 4px; }
+  .half h2 { position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: start; font: 400 clamp(56px, 6.2vw, 116px)/.86 var(--serif); text-transform: uppercase; letter-spacing: .005em; pointer-events: none; white-space: nowrap; }
+  .half h2 .w2:nth-child(2) > span { animation-delay: .32s; }
+  .half .ft { position: relative; z-index: 2; display: flex; align-items: end; gap: 20px; margin-top: 22px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .3); }
+  .half .names { display: flex; flex-wrap: wrap; gap: 4px 20px; flex: 1; min-width: 0; }
+  .half .names a { display: inline-flex; align-items: center; gap: 9px; padding: 4px 0; font: 400 15px var(--sans); color: rgba(255, 255, 255, .72); text-decoration: none; white-space: nowrap; transition: color .4s; }
+  .half .names a i { width: 7px; height: 7px; background: currentColor; transform: rotate(45deg); opacity: .6; transition: background .4s, transform .6s var(--e-out); }
+  .half .names a.on, .half .names a:hover { color: var(--white); }
+  .half .names a.on i { background: var(--mellow); opacity: 1; transform: rotate(225deg); }
+  .half .names a:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .half .go { flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--off-white); color: var(--ink); transition: transform .6s var(--e-out), background .4s; }
+  .half .go svg { width: 18px; height: 18px; }
+  .half:hover .go { transform: rotate(-45deg); background: var(--mellow); }
+
+  /* statement beside the live drawing */
+  .state { margin-top: 140px; }
+  .state .grid { align-items: center; }
+  .st-txt { grid-column: 1 / 7; }
+  .st-txt .kick { display: block; margin-bottom: 18px; color: var(--royal); }
+  .st-txt .t-state { max-width: 22ch; }
+  .figs { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; margin-top: 48px; border-top: 1px solid var(--line); }
+  .figs > div { padding: 18px 36px 0 0; }
+  .figs > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+  .figs b { display: block; font: 300 clamp(44px, 4vw, 68px)/1 var(--sans); letter-spacing: -.02em; }
+  .figs span:not([data-count]) { display: block; margin-top: 8px; font: 500 14px var(--sans); color: var(--ink-2); }
+  .st-art { grid-column: 7 / -1; position: relative; aspect-ratio: 4 / 3; border-radius: 14px; background: var(--off-white); overflow: hidden; }
+  .st-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* transformation in numbers: a tall photograph, six figures, hairlines only */
+  .trans { margin-top: 160px; }
+  .trans .yr { font: 500 15px var(--sans); color: var(--ink-3); }
+  .tgrid { display: grid; grid-template-columns: 1.25fr repeat(3, 1fr); grid-template-rows: repeat(2, minmax(240px, 34vh)); margin-top: 48px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tph { grid-row: 1 / span 2; margin: 16px 16px 16px 0; border-radius: var(--r); }
+  .tcell { display: flex; flex-direction: column; justify-content: space-between; padding: 20px 22px; border-left: 1px solid var(--line); }
+  .tcell:nth-child(n + 5) { border-top: 1px solid var(--line); }
+  .tcell b { font: 300 clamp(56px, 6vw, 112px)/.9 var(--sans); letter-spacing: -.03em; color: #2b2f38; }
+  .tcell b span { font: inherit; }
+  .tcell > span { font: 500 15px/1.4 var(--sans); color: var(--ink-2); }
+
+  .closing { margin-top: 160px; }
+
+  @media (max-width: 900px) {
+    .split { height: auto; min-height: 0; padding-top: 84px; }
+    .ttl { grid-template-columns: 1fr; } .ttl .line { text-align: left; }
+    .halves { flex-direction: column; } .half { min-height: 470px; padding: 18px 16px 16px; }
+    .half h2 { font-size: 11.4vw; } .half .names { gap: 2px 16px; } .half .names a { font-size: 14px; } .half .go { width: 48px; height: 48px; }
+    .state, .trans, .closing { margin-top: 88px; }
+    .st-txt, .st-art { grid-column: 1 / -1; } .st-art { margin-top: 28px; }
+    .figs > div { padding-right: 16px; } .figs > div + div { padding-left: 14px; }
+    .tgrid { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+    .tph { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 16 / 10; margin: 16px 0; }
+    .tcell { min-height: 170px; border-top: 1px solid var(--line); padding: 16px 14px; } .tcell:nth-child(even) { border-left: 0; padding-left: 0; }
+    .tcell b { font-size: 15vw; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Header: the portfolio split in two, owned and in partnership; each half opens to its page ===== -->
+  <section class="split">
+    <div class="stop">
+      <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><span class="idx">Our portfolio</span></div>
+      <div class="ttl"><h1 data-fit><span class="w2"><span>Our</span></span> <span class="w2"><span>portfolio</span></span></h1><p class="line">Eight hospitality assets from the Nile to the Red Sea, held in two ways.</p></div>
+    </div>
+    <div class="halves">
+      <article class="half" data-k="Owned">
+        <div class="imgs" aria-hidden="true"></div>
+        <a class="cover" href="owned.html" aria-label="Explore owned assets"></a>
+        <div class="hd"><span class="tag"><i></i>Wholly owned</span><span class="fig"><b class="num">1,202</b> keys<em>4 properties</em></span></div>
+        <h2><span class="w2"><span>Owned</span></span><span class="w2"><span>assets</span></span></h2>
+        <div class="ft"><nav class="names" aria-label="Owned assets"></nav><a class="go" href="owned.html" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a></div>
+      </article>
+      <article class="half" data-k="Partnership">
+        <div class="imgs" aria-hidden="true"></div>
+        <a class="cover" href="partnerships.html" aria-label="Explore strategic partnerships"></a>
+        <div class="hd"><span class="tag"><i></i>Strategic partnerships</span><span class="fig"><b class="num">1,395</b> keys<em>4 partnerships</em></span></div>
+        <h2><span class="w2"><span>Strategic</span></span><span class="w2"><span>partnerships</span></span></h2>
+        <div class="ft"><nav class="names" aria-label="Strategic partnerships"></nav><a class="go" href="partnerships.html" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Statement beside the Sphinx, drawn live in the mark ===== -->
+  <section class="state wrap">
+    <div class="grid">
+      <div class="st-txt">
+        <span class="t-small kick">Investing in Egypt's tourism future</span>
+        <p class="t-state" data-split>ACTP goes beyond investing in tourism projects, <em class="hl">transforming destinations into enduring landmarks</em> that support sustainable growth.</p>
+        <div class="figs">
+          <div><b class="num" data-count>8</b><span>Hospitality assets</span></div>
+          <div><b class="num" data-count>4</b><span>Destinations</span></div>
+          <div><b class="num" data-count>2,597</b><span>Keys across the portfolio</span></div>
+        </div>
+      </div>
+      <div class="st-art" id="sphBox"><canvas id="sphArt" role="img" aria-label="The Sphinx, drawn in the four shapes of the ACTP mark"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ===== Why Egypt: the photograph opens up ===== -->
+  <section class="grow" aria-label="Why Egypt" style="margin-top:160px">
+    <div class="stick">
+      <div class="frame"><img src="assets/img3/pyramids.jpg" alt="The pyramids of Giza and the Sphinx at sunset" loading="lazy"></div>
+      <div class="over"><div class="grid">
+        <div style="grid-column:1/7"><span class="t-small" style="display:block;margin-bottom:14px">Why Egypt?</span><p class="t-h2">One of the region's most dynamic tourism sectors</p></div>
+        <div style="grid-column:8/-1;align-self:end"><p style="font-size:17px;line-height:1.55;max-width:44ch">From historic cities and cultural landmarks to coastal resorts and Red Sea destinations, Egypt continues to shape one of the region's most dynamic tourism sectors. ACTP invests in destinations that reflect the depth, diversity, and long-term potential of Egyptian tourism.</p></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ===== Transformation in numbers: a photograph and six figures under hairlines ===== -->
+  <section class="trans wrap" id="numbers">
+    <header class="sh"><h2 class="t-h2" data-split>Transformation in numbers</h2>
+      <div class="side"><span class="yr num">2023 – 2025</span></div></header>
+    <div class="tgrid">
+      <figure class="ph tph" data-wipe><img src="assets/img4/sunset.jpg" alt="Sunset over the Red Sea from a hotel terrace" loading="lazy"></figure>
+      <div class="tcell"><b class="num">$<span data-count>28</span>M</b><span>Forecast net profit, FY25</span></div>
+      <div class="tcell"><b class="num"><span data-count>325</span>+</b><span>Rooms added</span></div>
+      <div class="tcell"><b class="num" data-count>121</b><span>Rooms renovated</span></div>
+      <div class="tcell"><b class="num" data-count>9</b><span>Meeting rooms added</span></div>
+      <div class="tcell"><b class="num" data-count>2</b><span>Hospitality outlets added</span></div>
+      <div class="tcell"><b class="num" data-count>1</b><span>Lobby renovated</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Careers ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="closer">
+      <figure class="ph" data-wipe><img src="assets/img3/team.jpg" alt="Colleagues at work in ACTP's office" loading="lazy" style="object-position:50% 78%"></figure>
+      <div class="txt">
+        <span class="t-small">Careers</span>
+        <h2 class="t-h2" data-split>Invest your talent in tourism excellence</h2>
+        <p>Explore career opportunities and be part of ACTP's journey in transforming destinations into enduring tourism landmarks.</p>
+        <a class="pill wide light" href="contact.html"><span><span class="roll"><span>Explore careers</span><span>Explore careers</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></a>
+        <span class="mark" id="mark"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=31"></script>
+<script src="assets/samples-art.js?v=31"></script>
+<script src="assets/samples3.js?v=31"></script>
+<script src="assets/v3.js?v=31"></script>
+<script src="assets/portfolio.js?v=31"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, PF = window.ACTP_PORT, { shapeSVG } = window.ACTP, reduce = A.reduce;
+  A.init();
+
+  // ---- header halves: each cross-fades through its own properties, naming the one shown; names lead to the property
+  document.querySelectorAll(".half").forEach((h, hi) => {
+    const L = PF.list(h.dataset.k), box = h.querySelector(".imgs"), nav = h.querySelector(".names");
+    box.innerHTML = L.map((p, x) => `<img src="${p.gallery[0]}" alt="" ${x ? 'loading="lazy"' : ""}>`).join("");
+    nav.innerHTML = L.map((p) => `<a href="property.html?id=${p.id}"><i></i>${p.name}</a>`).join("");
+    const imgs = [...box.children], links = [...nav.children]; let k = 0, t, hold = false;
+    const show = (j) => { k = j; imgs.forEach((im, x) => im.classList.toggle("on", x === j)); links.forEach((a, x) => a.classList.toggle("on", x === j)); };
+    const run = () => { clearTimeout(t); if (reduce || hold) return; t = setTimeout(() => { if (!document.hidden) show((k + 1) % L.length); run(); }, 4600); };
+    links.forEach((a, x) => { a.addEventListener("pointerenter", () => { hold = true; show(x); clearTimeout(t); }); a.addEventListener("focus", () => show(x)); });
+    nav.addEventListener("pointerleave", () => { hold = false; run(); });
+    show(0); setTimeout(run, hi * 2300);
+  });
+
+  // ---- the Sphinx, drawn live in the mark and parting under the pointer
+  A.art(document.getElementById("sphArt"), "assets/art/sphinx.jpg", { cell: (w) => Math.max(6, Math.round(w / 90)), fg: ["#293959", "#3e67b1", "#3e67b1", "#fbb062"], scale: .86, pad: .02, interact: "swell", radius: .16, hot: "#fecb93", idle: true, pointerTarget: document.getElementById("sphBox") });
+
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=31"></script>
+
+</body>
+</html>

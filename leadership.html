@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACTP Leadership</title>
+<meta name="description" content="ACTP's Board of Directors and Executive Management: guiding long-term growth through strategic direction and operational expertise.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  .board { margin-top: 140px; }
+  .exec, .closing { margin-top: 160px; }
+  .hl { font-style: italic; }
+  .board .intro { margin-top: 36px; max-width: 46ch; }
+
+  /* header: three photographs on Teal, the page name huge at the bottom left */
+  .trio { position: relative; min-height: 100svh; background: var(--teal); color: var(--off-white); overflow: hidden; padding: 100px var(--g) var(--g); display: flex; flex-direction: column; }
+  .trio .crumbs a, .trio .crumbs span { color: var(--off-white); background: rgba(236, 233, 222, .14); text-decoration: none; }
+  .trio .line { max-width: 28ch; margin-top: 18px; font: 300 clamp(20px, 1.6vw, 26px)/1.3 var(--sans); }
+  .trio figure { position: absolute; border-radius: var(--r); overflow: hidden; animation: ppIn 1.4s var(--e-out) both; }
+  .trio figure img { width: 100%; height: 100%; object-fit: cover; }
+  .trio .p1 { left: 34%; top: 14%; width: 20%; aspect-ratio: 4 / 3; animation-delay: .1s; }
+  .trio .p2 { right: 4%; top: 10%; width: 17%; aspect-ratio: 3 / 4; animation-delay: .25s; }
+  .trio .p3 { right: 25%; top: 38%; width: 21%; aspect-ratio: 4 / 3; animation-delay: .4s; }
+  .trio h1 { margin-top: auto; position: relative; z-index: 2; font: 400 clamp(84px, 14vw, 250px)/.78 var(--serif); text-transform: uppercase; white-space: nowrap; margin-left: -.04em; margin-bottom: -.03em; }
+  .trio h1 .w2 { display: inline-block; overflow: hidden; padding-bottom: .04em; }
+  .trio h1 .w2 > span { display: inline-block; animation: phUp 1.3s var(--e-out) .2s both; }
+
+  /* board carousel: the second card is the active member, about twice the size; the row slides left on a timer */
+  .board .sh .arr { display: flex; gap: 8px; }
+  .board .sh .arr button { all: unset; cursor: pointer; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); transition: background .3s, color .3s; }
+  .board .sh .arr button:hover { background: var(--ink); color: var(--white); }
+  .board .sh .arr button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .board .sh .arr svg { width: 16px; height: 16px; }
+  .bcar { position: relative; margin-top: 48px; overflow: hidden; }
+  .bc-items { position: relative; }
+  .bc-items button { all: unset; box-sizing: border-box; position: absolute; left: 0; top: 0; border-radius: var(--r); overflow: hidden; cursor: pointer; background: #d9dfe9;
+    transition: transform .9s cubic-bezier(.65, 0, .35, 1), width .9s cubic-bezier(.65, 0, .35, 1), height .9s cubic-bezier(.65, 0, .35, 1), opacity .35s; }
+  .bc-items button.jump { transition: opacity .35s; }
+  .bc-items img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 16%; transition: transform 1.2s var(--e-out); }
+  .bc-items button::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(62, 103, 177, .28), transparent 55%); pointer-events: none; }
+  .bc-items button:hover img { transform: scale(1.04); }
+  .bc-items button[aria-current="true"] { cursor: default; }
+  .bc-items button:focus-visible { outline: 3px solid var(--sandy); outline-offset: 3px; }
+  .bc-info { position: absolute; top: 0; transition: opacity .35s var(--e-out), transform .6s var(--e-out); }
+  .bc-info.out { opacity: 0; transform: translateY(10px); }
+  .bc-info .bar { display: block; width: 52px; height: 2px; background: var(--sandy); }
+  .bc-info h3 { margin-top: 18px; font: 400 clamp(32px, 2.8vw, 48px)/1 var(--serif); }
+  .bc-info .role { margin-top: 10px; font: 500 15px var(--sans); color: var(--royal); }
+  .bc-info .brief { margin-top: 18px; max-width: 54ch; font: 400 15px/1.6 var(--sans); color: var(--ink-2); }
+  .bc-info small { display: inline-block; margin-top: 12px; padding: 5px 9px; border-radius: 7px; background: var(--off-white); font: 500 12px var(--sans); color: var(--ink-2); }
+  .bc-prog { height: 2px; margin-top: 24px; background: var(--line); overflow: hidden; }
+  .bc-prog i { display: block; height: 100%; background: var(--sandy); transform-origin: left; transform: scaleX(0); }
+  .bc-prog i.run { animation: bcfill var(--bcd, 5s) linear forwards; }
+  @keyframes bcfill { to { transform: scaleX(1); } }
+
+  /* executive management: a directory */
+  .exec .ex { margin-top: 48px; align-items: end; }
+  .exec .q { grid-column: 1 / 8; }
+  .exec .note { grid-column: 9 / -1; display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 12px; background: var(--off-white); font: 500 14px/1.4 var(--sans); color: var(--ink-2); }
+  .exec .note .dot { flex: none; width: 10px; height: 10px; background: var(--teal); transform: rotate(45deg); }
+  .dir { margin-top: 64px; }
+  .dir .grp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); padding: 16px 0 26px; border-top: 1px solid var(--line); }
+  .dir .grp h3 { grid-column: 1 / 5; font: 400 clamp(22px, 1.8vw, 28px)/1.2 var(--serif); padding-top: 12px; }
+  .dir ul { grid-column: 5 / -1; }
+  .dir li { display: grid; grid-template-columns: 44px 1fr 1fr; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .dir li:last-child { border-bottom: 0; }
+  .dir .av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--off-white); }
+  .dir .av svg { width: 16px; height: 16px; }
+  .dir .nm { font: 500 16px var(--sans); color: var(--ink-3); }
+  .dir .tt { font: italic 400 18px var(--serif); color: var(--ink-2); }
+
+  @media (max-width: 900px) {
+    .board { margin-top: 88px; } .exec, .closing { margin-top: 104px; }
+    .trio .p1 { left: 8%; top: 30%; width: 44%; } .trio .p2 { right: 6%; top: 24%; width: 34%; } .trio .p3 { right: 12%; top: 46%; width: 44%; }
+    .bc-info { position: static; margin-top: 18px; }
+    .exec .note { margin-top: 24px; }
+    .dir .grp h3, .dir ul { grid-column: 1 / -1; } .dir ul { margin-top: 10px; }
+    .dir li { grid-template-columns: 40px 1fr; } .dir .tt { grid-column: 2; font-size: 16px; margin-top: -10px; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Header: three photographs on Teal, after Aker's Culture page ===== -->
+  <section class="trio">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><a class="idx" href="about.html">About</a><i></i><span class="idx">Leadership</span></div>
+    <p class="line">Guiding long-term growth through strategic direction and operational expertise.</p>
+    <figure class="p1"><img src="assets/img3/meeting-wide.jpg" alt="ACTP's leadership in a meeting"></figure>
+    <figure class="p2"><img src="assets/img3/team.jpg" alt="Colleagues working together at ACTP" style="object-position:50% 70%"></figure>
+    <figure class="p3"><img src="assets/img3/people-a.jpg" alt="A meeting in ACTP's office" style="object-position:50% 58%"></figure>
+    <h1 data-fit><span class="w2"><span>Leadership</span></span></h1>
+  </section>
+
+  <!-- ===== Board of Directors: the carousel from the reference ===== -->
+  <section class="board wrap" id="board">
+    <header class="sh"><h2 class="t-h2" data-split>Board of Directors</h2>
+      <div class="side"><div class="arr"><button type="button" id="prev" aria-label="Previous member"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7.5 3.5 3 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><button type="button" id="next" aria-label="Next member"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div></div></header>
+    <p class="intro t-state-s" data-fade>ACTP's Board of Directors provides strategic oversight and investment direction, supporting the company's <em class="hl">long-term vision</em> across the tourism, hospitality, and real estate sectors.</p>
+    <div class="bcar" id="bcar" role="region" aria-roledescription="carousel" aria-label="Board of Directors">
+      <div class="bc-items" id="bcItems"></div>
+      <div class="bc-info" id="bcInfo" aria-live="polite">
+        <i class="bar" aria-hidden="true"></i>
+        <h3 id="bcName"></h3>
+        <p class="role" id="bcRole"></p>
+        <p class="brief" id="bcBrief"></p>
+        <small>Placeholder brief, to be replaced with ACTP's text</small>
+      </div>
+      <div class="bc-prog" aria-hidden="true"><i id="bcProg"></i></div>
+    </div>
+  </section>
+
+  <!-- ===== Executive Management: a directory, after Aker's Team page ===== -->
+  <section class="exec wrap" id="exec">
+    <header class="sh"><h2 class="t-h2" data-split>Executive Management</h2></header>
+    <div class="grid ex">
+      <p class="q t-state" data-fade>Executive Management leads ACTP's operations and development strategy through <em class="hl">operational expertise, financial management, and hospitality excellence.</em></p>
+      <p class="note" data-fade style="--d:.15s"><span class="dot" aria-hidden="true"></span>Suggested structure with placeholder names. ACTP to confirm the names and titles.</p>
+    </div>
+    <div class="dir" id="dir"></div>
+  </section>
+
+  <!-- ===== Two closing cards ===== -->
+  <section class="closing wrap" id="contact">
+    <div class="pair">
+      <a class="pcard photo" href="governance.html">
+        <img src="assets/img3/finance-hand.jpg" alt="" loading="lazy" style="object-position:50% 35%">
+        <span class="t-small">Governance</span>
+        <h2>Supporting strategic transformation</h2>
+        <p>Structured investment policies, operational transparency, financial reporting and continuous organizational development.</p>
+        <span class="pill light"><span><span class="roll"><span>Explore governance</span><span>Explore governance</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+      <a class="pcard teal" href="#">
+        <span class="mark" id="mark"></span>
+        <span class="t-small">Careers</span>
+        <h2>Invest your talent in tourism excellence</h2>
+        <p>Explore career opportunities and be part of ACTP's journey in transforming destinations into enduring tourism landmarks.</p>
+        <span class="pill light"><span><span class="roll"><span>Explore careers</span><span>Explore careers</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3, { shapeSVG } = window.ACTP, reduce = A.reduce;
+  A.init();
+
+  // Board of Directors, names and roles from the Figma file. Portraits are placeholders; briefs are placeholder text.
+  const BOARD = [
+    { name: "Ahmed Abu Qubba", role: "Head of Board", img: "assets/board/p2.jpg" },
+    { name: "Wafa Albahri", role: "Board Member", img: "assets/board/p1.jpg" },
+    { name: "Besher Fengewa", role: "Board Member", img: "assets/board/p6.jpg" },
+    { name: "Majed Montaser", role: "Board Member", img: "assets/board/p4.jpg" },
+    { name: "Mohammed Abu Saeed", role: "Board Member", img: "assets/board/p5.jpg" },
+    { name: "Mustafa Abu Bakr", role: "Board Member", img: "assets/board/p3.jpg" },
+  ];
+  const brief = (m) => `${m.name} serves as ${m.role === "Head of Board" ? "Head of the Board of Directors" : "a member of the Board of Directors"} at ACTP. This brief will cover their professional background, current appointments, years of experience in investment and hospitality, and the board responsibilities they hold.`;
+
+  // ---- The carousel from the reference: slot 0 a card at the left edge, slot 1 the active member at about twice the size,
+  //      the info beside it, the rest of the board in a row to the right. Every few seconds the row slides one place left.
+  const car = document.getElementById("bcar"), wrap = document.getElementById("bcItems"), info = document.getElementById("bcInfo");
+  const nameEl = document.getElementById("bcName"), roleEl = document.getElementById("bcRole"), briefEl = document.getElementById("bcBrief"), prog = document.getElementById("bcProg");
+  const n = BOARD.length, DUR = 5000;
+  wrap.innerHTML = BOARD.map((m) => `<button type="button" aria-label="${m.name}, ${m.role}"><img src="${m.img}" alt="" loading="lazy"></button>`).join("");
+  const items = [...wrap.children];
+  let cur = 0, slots = new Array(n).fill(-1), timer = 0, inside = false, G = {};
+  const geom = () => {
+    const W = car.clientWidth, phone = innerWidth <= 900, gap = phone ? 8 : 12;
+    const w = phone ? (W - 2 * gap) / 3.15 : (W - 6 * gap) / 7.2, hs = w * 1.42, wa = w * 2.1 + gap * .1, ha = hs * 2.08;
+    return { W, gap, w, hs, wa, ha, phone };
+  };
+  const place = (animate = true) => {
+    G = geom();
+    const { gap, w, hs, wa, ha, phone } = G;
+    wrap.style.height = ha + "px";
+    items.forEach((b, k) => {
+      const s = (k - cur + 1 + n) % n, old = slots[k];
+      // the card that leaves on the left re-enters at the far right: it fades out, jumps, and fades back in
+      const wraps = animate && old >= 0 && Math.abs(s - old) > 1;
+      const x = s === 0 ? 0 : s === 1 ? w + gap : w + gap + wa + gap + (s - 2) * (w + gap);
+      const ww = s === 1 ? wa : w, hh = s === 1 ? ha : hs, y = s === 1 ? 0 : ha - hs;
+      const apply = () => { b.style.transform = `translate(${x}px, ${y}px)`; b.style.width = ww + "px"; b.style.height = hh + "px"; };
+      if (wraps && !reduce) {
+        b.style.opacity = 0;
+        setTimeout(() => { b.classList.add("jump"); apply(); void b.offsetWidth; b.classList.remove("jump"); b.style.opacity = 1; }, 380);
+      } else { if (!animate) b.classList.add("jump"); apply(); if (!animate) { void b.offsetWidth; b.classList.remove("jump"); } b.style.opacity = 1; }
+      b.setAttribute("aria-current", s === 1); b.tabIndex = 0;
+      slots[k] = s;
+    });
+    if (!phone) { info.style.left = (w + gap + wa + gap) + "px"; info.style.width = Math.min(G.W - (w + gap + wa + gap), 620) + "px"; }
+    else { info.style.left = ""; info.style.width = ""; }
+  };
+  const text = (first) => {
+    const m = BOARD[cur];
+    info.classList.add("out");
+    setTimeout(() => { nameEl.textContent = m.name; roleEl.textContent = m.role; briefEl.textContent = brief(m); info.classList.remove("out"); }, first ? 0 : 420);
+  };
+  const restart = () => {
+    clearTimeout(timer); prog.classList.remove("run"); void prog.offsetWidth;
+    if (reduce || inside || document.hidden) return;
+    car.style.setProperty("--bcd", DUR / 1000 + "s"); prog.classList.add("run");
+    timer = setTimeout(() => go(cur + 1), DUR);
+  };
+  const go = (i) => { cur = (i + n) % n; place(true); text(false); restart(); };
+  items.forEach((b, k) => (b.onclick = () => { if (k !== cur) go(k); }));
+  document.getElementById("prev").onclick = () => go(cur - 1);
+  document.getElementById("next").onclick = () => go(cur + 1);
+  car.addEventListener("pointerenter", () => { inside = true; restart(); });
+  car.addEventListener("pointerleave", () => { inside = false; restart(); });
+  car.addEventListener("focusin", () => { inside = true; restart(); });
+  car.addEventListener("focusout", () => { inside = false; restart(); });
+  car.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1); } if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1); } });
+  new ResizeObserver(() => place(false)).observe(car);
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) restart(); else clearTimeout(timer); }).observe(car);
+  document.addEventListener("visibilitychange", restart);
+  place(false); text(true);
+
+  // ---- Executive Management directory: a suggested structure for ACTP to fill in
+  const GROUPS = [
+    { name: "Executive office", color: "var(--ink)", shape: "square", roles: ["Chief Executive Officer", "Deputy Chief Executive Officer"] },
+    { name: "Finance and investment", color: "var(--royal)", shape: "circle", roles: ["Chief Financial Officer", "Head of Investments", "Head of Investor Relations"] },
+    { name: "Assets and development", color: "var(--teal)", shape: "diamond", roles: ["Head of Asset Management", "Head of Development and Projects"] },
+    { name: "Corporate services", color: "var(--sandy)", shape: "astroid", roles: ["Head of Legal and Governance", "Head of Human Resources"] },
+  ];
+  document.getElementById("dir").innerHTML = GROUPS.map((g) => `<div class="grp"><h3>${g.name}</h3><ul>${g.roles.map((r) => `<li><span class="av" style="background:${g.color}">${shapeSVG(g.shape)}</span><span class="nm">Name Surname</span><span class="tt">${r}</span></li>`).join("")}</ul></div>`).join("");
+
+  document.getElementById("mark").innerHTML = shapeSVG("astroid");
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>

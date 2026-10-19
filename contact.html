@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact ACTP</title>
+<meta name="description" content="Contact ACTP about investment opportunities, strategic partnerships, careers or media enquiries.">
+<link rel="stylesheet" href="assets/actp.css?v=30">
+<link rel="stylesheet" href="assets/motion.css?v=30">
+<link rel="stylesheet" href="assets/v3.css?v=30">
+<style>
+  /* one dark screen: details at the top left, the form on the right, the word huge at the bottom */
+  .cpage { position: relative; min-height: 100svh; background: var(--teal); color: var(--off-white); padding: 100px var(--g) var(--g); display: flex; flex-direction: column; overflow: hidden; }
+  .cpage .crumbs a, .cpage .crumbs span { color: var(--off-white); background: rgba(236, 233, 222, .14); text-decoration: none; }
+  .cgrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); align-items: end; margin-top: 28px; border-top: 1px solid var(--line-dark); padding-top: 18px; position: relative; z-index: 2; }
+  .cleft { grid-column: 1 / 6; display: flex; flex-direction: column; justify-content: flex-end; }
+  .intro { font: 300 clamp(20px, 1.6vw, 26px)/1.35 var(--sans); max-width: 30ch; }
+  .intro .t-small { display: block; margin-bottom: 12px; color: var(--mellow); font: 500 14px var(--sans); }
+  .det { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 24px; margin: 40px 0 0; }
+  .det div:first-child { grid-column: 1 / -1; }
+  .det dt { font: 500 13px var(--sans); color: #bfe0e3; }
+  .det dd { margin: 8px 0 0; font: 400 16px/1.55 var(--sans); }
+  .det a { color: var(--off-white); text-decoration: none; } .det a:hover { color: var(--mellow); }
+  .det .map { display: inline-flex; margin-left: 12px; padding: 3px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(236, 233, 222, .4); font: 500 13px var(--sans); }
+
+  /* the form card */
+  .cform { grid-column: 7 / -1; position: relative; align-self: start; padding: 24px; border-radius: 14px; background: var(--off-white); color: var(--ink); }
+  .fhead { display: flex; justify-content: space-between; align-items: baseline; }
+  .fhead h2 { font: 400 clamp(28px, 2.2vw, 36px)/1.1 var(--serif); }
+  .fhead span { font: 500 13px var(--sans); color: var(--ink-3); }
+  .types { border: 0; padding: 0; margin: 20px 0 6px; }
+  .types legend { font: 500 13px var(--sans); color: var(--ink-2); margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips span { display: inline-flex; padding: 9px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(41, 57, 89, .25); font: 500 14px var(--sans); cursor: pointer; transition: background .3s, color .3s; }
+  .chips input:checked + span { background: var(--ink); color: var(--white); box-shadow: none; }
+  .chips input:focus-visible + span { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fld { position: relative; margin-top: 10px; }
+  .fld input, .fld textarea { width: 100%; box-sizing: border-box; padding: 24px 14px 10px; border: 0; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px rgba(41, 57, 89, .16); font: 400 16px var(--sans); color: var(--ink); resize: vertical; transition: box-shadow .3s; }
+  .fld input:focus, .fld textarea:focus { outline: none; box-shadow: inset 0 0 0 2px var(--royal); }
+  .fld label { position: absolute; left: 14px; top: 17px; font: 400 16px var(--sans); color: var(--ink-3); pointer-events: none; transform-origin: left top; transition: transform .3s var(--e-out), color .3s; }
+  .fld input:focus + label, .fld input:not(:placeholder-shown) + label, .fld textarea:focus + label, .fld textarea:not(:placeholder-shown) + label { transform: translateY(-10px) scale(.76); color: var(--royal); }
+  .fld.bad input, .fld.bad textarea { box-shadow: inset 0 0 0 2px #b4442c; }
+  .drop { display: block; margin-top: 10px; padding: 18px; border-radius: 10px; border: 1.5px dashed rgba(41, 57, 89, .3); text-align: center; cursor: pointer; transition: background .3s, border-color .3s; }
+  .drop.over { background: rgba(62, 103, 177, .08); border-color: var(--royal); }
+  .drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .drop:focus-within { outline: 3px solid var(--sandy); outline-offset: 2px; }
+  .dz { display: block; font: 400 15px var(--sans); color: var(--ink-2); }
+  .dz b { font-weight: 500; color: var(--ink); margin-right: 6px; }
+  .dz small { display: block; margin-top: 4px; font: 400 13px var(--sans); color: var(--ink-3); }
+  .files { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
+  .files span { padding: 4px 10px; border-radius: 999px; background: var(--white); font: 500 12px var(--sans); }
+  .legal { margin-top: 14px; font: 400 13px/1.5 var(--sans); color: var(--ink-2); }
+  .legal a { color: var(--ink); }
+  .send { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+  .send button.pill { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; font: 500 15px/1 var(--sans); }
+  .send button.pill > span { display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: var(--white); transition: background .4s; }
+  .send button.pill > b { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--white); transition: transform .6s var(--e-out), background .4s; }
+  .send button.pill > b svg { width: 16px; height: 16px; }
+  .send button.pill:hover > span, .send button.pill:hover > b { background: var(--royal); }
+  .send button.pill:hover > b { transform: rotate(-45deg); }
+  .send button.pill:focus-visible { outline: 3px solid var(--sandy); outline-offset: 3px; border-radius: 999px; }
+  .err { font: 500 14px var(--sans); color: #b4442c; }
+  .done { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: start; padding: 32px; border-radius: 14px; background: var(--off-white); }
+  .done h2 { font: 400 clamp(40px, 3.6vw, 60px)/1 var(--serif); }
+  .done p { margin-top: 14px; max-width: 34ch; font: 400 17px/1.5 var(--sans); color: var(--ink-2); }
+  .cform.sent .done { display: flex; }
+
+  .cword { position: relative; z-index: 1; margin-top: 26px; font: 400 clamp(90px, 15vw, 280px)/.78 var(--serif); text-transform: uppercase; white-space: nowrap; margin-left: -.04em; margin-bottom: -.03em; }
+  .cword .w2 { display: inline-block; overflow: hidden; padding-bottom: .04em; }
+  .cword .w2 > span { display: inline-block; animation: phUp 1.3s var(--e-out) .2s both; }
+  .foot3.on-dark { margin-top: 0; }
+
+  @media (max-width: 900px) {
+    .cgrid { grid-template-columns: 1fr; row-gap: 32px; } .cleft, .cform { grid-column: 1; }
+    .det { grid-template-columns: 1fr; }
+    .row2 { grid-template-columns: 1fr; gap: 0; }
+    .cform { padding: 18px; }
+  }
+
+</style>
+</head>
+<body class="v3">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top"><a href="index.html" aria-label="ACTP home"><img class="logo logo--light" src="assets/img/logo.svg" alt="ACTP, Arab Company for Touristic Projects"></a></header>
+<div class="dock">
+  <a class="lang" href="#" lang="ar">عربي</a>
+  <a class="cta" href="investment.html">Invest with us</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr-only">Open menu</span><i></i></button>
+</div>
+<div class="menu3" id="menu" aria-hidden="true" data-open="false" role="dialog" aria-label="Menu">
+  <div class="mt"><img class="logo" src="assets/img/logo.svg" alt="ACTP"><button class="close" type="button" aria-label="Close menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <nav>
+    <a href="index.html"><span>Home</span></a>
+    <div class="grp"><a href="about.html"><span>About</span></a><div class="subs"><div><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a></div></div></div>
+    <div class="grp"><a href="portfolio.html"><span>Our portfolio</span></a><div class="subs"><div><a href="owned.html">Owned assets</a><a href="partnerships.html">Strategic partnerships</a></div></div></div>
+    <div class="grp"><a href="investment.html"><span>Investments</span></a><div class="subs"><div><a href="reports.html">Reports</a></div></div></div>
+    <a href="media.html"><span>Media</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <figure><img src="assets/mosaic/egypt.svg" alt="Egypt, drawn in the four shapes of the ACTP mark, with ACTP's destinations marked"></figure>
+  <div class="mf"><span>Enawalks, Office F3-11, New Cairo</span><span class="clock">Cairo</span></div>
+</div>
+
+
+<main id="main">
+  <!-- ===== Contact, after Aker: one screen, the word huge at the top, details and form side by side, bottoms aligned ===== -->
+  <section class="cpage on-dark">
+    <div class="crumbs"><a class="idx" href="index.html">Home</a><i></i><span class="idx">Contact us</span></div>
+    <h1 class="cword" data-fit><span class="w2"><span>Contact</span></span></h1>
+    <div class="cgrid">
+      <div class="cleft">
+        <p class="intro"><span class="t-small">Let's build enduring destinations together</span>Whether you're exploring investment opportunities, strategic partnerships, or career opportunities, our team is ready to connect.</p>
+        <dl class="det">
+          <div><dt>Head office</dt><dd>Arab Company for Touristic Projects (ACTP)<br>Enawalks, Office F3-11, Administrative Building<br>New Cairo, Egypt<a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Enawalks+New+Cairo+Egypt" target="_blank" rel="noopener">Open in Maps</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+20226121499">+20 2 2612 1499</a><br><a href="tel:+20226121498">+20 2 2612 1498</a><br><a href="tel:+20226121495">+20 2 2612 1495</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:info@seyahia.com">info@seyahia.com</a></dd></div>
+        </dl>
+      </div>
+
+      <form class="cform" id="cform" action="#" novalidate>
+        <div class="fhead"><h2>Send us a message</h2><span class="num" id="fStep">Inquiry</span></div>
+        <fieldset class="types">
+          <legend>What is it about?</legend>
+          <div class="chips">
+            <label><input type="radio" name="type" value="Investment" checked><span>Investment</span></label>
+            <label><input type="radio" name="type" value="Partnership"><span>Strategic partnership</span></label>
+            <label><input type="radio" name="type" value="Careers"><span>Careers</span></label>
+            <label><input type="radio" name="type" value="Media"><span>Media</span></label>
+            <label><input type="radio" name="type" value="Other"><span>Something else</span></label>
+          </div>
+        </fieldset>
+        <div class="row2">
+          <div class="fld"><input id="fName" name="name" autocomplete="name" placeholder=" " required><label for="fName">Full name</label></div>
+          <div class="fld"><input id="fPhone" name="phone" type="tel" autocomplete="tel" placeholder=" "><label for="fPhone">Phone number</label></div>
+        </div>
+        <div class="row2">
+          <div class="fld"><input id="fEmail" name="email" type="email" autocomplete="email" placeholder=" " required><label for="fEmail">Email address</label></div>
+          <div class="fld"><input id="fOrg" name="org" autocomplete="organization" placeholder=" "><label for="fOrg">Company or organization</label></div>
+        </div>
+        <div class="fld"><textarea id="fMsg" name="message" rows="4" placeholder=" " required></textarea><label for="fMsg">Tell us how we can help</label></div>
+        <label class="drop" id="drop" for="fFiles">
+          <input id="fFiles" type="file" multiple accept=".pdf,image/*,video/*">
+          <span class="dz"><b>Attachments</b> Drag files here or <u>browse</u><small>PDFs, videos or images, up to 4 MB each</small></span>
+          <span class="files" id="fileList"></span>
+        </label>
+        <p class="legal">By submitting this form, you confirm that you have read and agree to our <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+        <div class="send">
+          <button class="pill warm" type="submit"><span><span class="roll"><span>Get in touch</span><span>Get in touch</span></span></span><b><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></b></button>
+          <span class="err" id="fErr" aria-live="polite"></span>
+        </div>
+        <div class="done" id="fDone" tabindex="-1"><h2>Thank you</h2><p>Your message has reached ACTP's team. We'll reply within two working days.</p></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot3 on-dark">
+  <div class="fl">
+    <p class="say">Let's build enduring destinations together. <a href="mailto:info@seyahia.com">info@seyahia.com</a></p>
+    <nav class="n1" aria-label="About"><b>About</b><a href="about.html">Who we are</a><a href="leadership.html">Leadership</a><a href="governance.html">Governance</a><a href="#">Careers</a></nav>
+    <nav class="n2" aria-label="Work"><b>Our work</b><a href="portfolio.html">Portfolio</a><a href="investment.html">Investments</a><a href="reports.html">Reports</a><a href="media.html">Media</a></nav>
+    <nav class="n3" aria-label="Contact"><b>Head office</b><a href="#">Enawalks, Office F3-11, Administrative Building, New Cairo</a><a href="tel:+20226121499">+20 2 2612 1499</a></nav>
+  </div>
+  <div class="lettering" id="footBox"><canvas id="footWord" role="img" aria-label="ACTP, drawn in the four shapes of the mark"></canvas></div>
+  <div class="legal"><span>© 2026 Arab Company for Touristic Projects</span><span><a href="#">Privacy</a><a href="#">Terms of use</a></span><span class="clock">Cairo</span></div>
+</footer>
+
+
+<script src="assets/mosaic.js?v=30"></script>
+<script src="assets/samples3.js?v=30"></script>
+<script src="assets/v3.js?v=30"></script>
+<script>
+(async () => {
+  const A = window.ACTP3;
+  A.init();
+
+  // inquiry type sets the form's label
+  const step = document.getElementById("fStep");
+  document.querySelectorAll('.chips input').forEach((r) => r.addEventListener("change", () => (step.textContent = r.value)));
+  step.textContent = document.querySelector('.chips input:checked').value;
+
+  // attachments: drag and drop, 4 MB limit per file
+  const drop = document.getElementById("drop"), input = document.getElementById("fFiles"), list = document.getElementById("fileList"), err = document.getElementById("fErr");
+  const show = (files) => {
+    const ok = [...files].filter((f) => f.size <= 4 * 1024 * 1024), big = [...files].length - ok.length;
+    list.innerHTML = ok.map((f) => `<span>${f.name}</span>`).join("");
+    err.textContent = big ? `${big} file${big > 1 ? "s are" : " is"} over 4 MB and won't be sent.` : "";
+  };
+  input.addEventListener("change", () => show(input.files));
+  ["dragenter", "dragover"].forEach((e) => drop.addEventListener(e, (ev) => { ev.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach((e) => drop.addEventListener(e, (ev) => { ev.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", (ev) => show(ev.dataTransfer.files));
+
+  // validation and a thank-you state
+  const form = document.getElementById("cform");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const need = [["fName", (v) => v.trim().length > 1], ["fEmail", (v) => /\S+@\S+\.\S+/.test(v)], ["fMsg", (v) => v.trim().length > 4]];
+    let first = null;
+    need.forEach(([id, ok]) => { const el = document.getElementById(id), good = ok(el.value); el.parentElement.classList.toggle("bad", !good); el.setAttribute("aria-invalid", !good); if (!good && !first) first = el; });
+    if (first) { err.textContent = "Please add your name, a valid email and a short message."; first.focus(); return; }
+    err.textContent = ""; form.classList.add("sent"); document.getElementById("fDone").focus();
+  });
+
+  A.footerLetters(document.getElementById("footWord"), document.getElementById("footBox"));
+})();
+</script>
+<script src="assets/motion.js?v=30"></script>
+
+</body>
+</html>
